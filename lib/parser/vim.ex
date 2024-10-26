@@ -145,7 +145,7 @@ defmodule ChromaBabel.Parser.Vim do
   defp style("italic"), do: [:italic]
   defp style("underline"), do: [:underline]
   defp style("undercurl"), do: [:undercurl]
-  defp style("NONE"), do: []
+  defp style("NONE"), do: nil
   defp style("#" <> hex), do: "#" <> hex
   defp style(l) when is_list(l), do: Enum.flat_map(l, &style/1)
 
