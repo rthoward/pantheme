@@ -41,7 +41,7 @@ defmodule ChromaBabel.Parser.VimTest do
                | _
              ] = Keyword.get_values(parsed, :highlight)
 
-      assert %{to: "ModeMsg", from: "Normal"} = parsed[:highlight_link]
+      assert %{to: "ModeMsg", from: "Normal"} = parsed[:link]
     end
   end
 

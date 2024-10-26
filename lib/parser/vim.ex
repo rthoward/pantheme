@@ -67,13 +67,13 @@ defmodule ChromaBabel.Parser.Vim do
     |> repeat(highlight_color)
     |> reduce({__MODULE__, :transform, [:highlight]})
 
-  highlight_link =
+  link =
     ignore(string("highlight! link"))
     |> ignore(whitespace)
     |> concat(word)
     |> ignore(whitespace)
     |> concat(word)
-    |> reduce({__MODULE__, :transform, [:highlight_link]})
+    |> reduce({__MODULE__, :transform, [:link]})
 
   line =
     ignore(repeat(whitespace))
@@ -81,7 +81,7 @@ defmodule ChromaBabel.Parser.Vim do
       term_color,
       highlight_clear,
       highlight,
-      highlight_link,
+      link,
       ignore_line
     ])
     |> ignore(eol)
@@ -91,8 +91,8 @@ defmodule ChromaBabel.Parser.Vim do
   def transform([index, color], :term_color),
     do: {:term_color, %{index: index, color: color}}
 
-  def transform([to, from], :highlight_link),
-    do: {:highlight_link, %{to: to, from: from}}
+  def transform([to, from], :link),
+    do: {:link, %{to: to, from: from}}
 
   def transform([name | colors], :highlight) do
     {:highlight,
@@ -117,14 +117,14 @@ defmodule ChromaBabel.Parser.Vim do
         Map.update(acc, h.name, highlight, &Map.merge(&1, highlight))
       end)
 
-    linked_highlights =
+    resolved_links =
       parsed
-      |> Keyword.get_values(:highlight_link)
+      |> Keyword.get_values(:link)
       |> Map.new(fn %{from: from, to: to} ->
         {from, highlights[to] || highlights["Normal"]}
       end)
 
-    all_highlights = Map.merge(highlights, linked_highlights)
+    all_highlights = Map.merge(highlights, resolved_links)
 
     {:ok, %{term_colors: term_colors, highlights: all_highlights}}
   end
