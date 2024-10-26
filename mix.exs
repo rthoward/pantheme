@@ -21,7 +21,10 @@ defmodule ChromaBabel.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:nimble_parsec, "~> 1.4"}
+      {:nimble_parsec, "~> 1.4"},
+
+      # Non-production deps
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
     ]
   end
 end
