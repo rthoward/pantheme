@@ -131,8 +131,8 @@ defmodule ChromaBabel.Parser.Vim do
 
   defp highlight(map) do
     map
-    |> Map.take([:guifg, :guibg, :guisp, :gui])
     |> map_keys(&attr/1)
+    |> Enum.reject(&nil_key?/1)
     |> map_values(&style/1)
   end
 
@@ -140,6 +140,8 @@ defmodule ChromaBabel.Parser.Vim do
   defp attr(:guibg), do: :background
   defp attr(:guisp), do: :special
   defp attr(:gui), do: :style
+  defp attr(:name), do: nil
+  defp attr(:cterm), do: nil
 
   defp style("bold"), do: [:bold]
   defp style("italic"), do: [:italic]
@@ -151,4 +153,7 @@ defmodule ChromaBabel.Parser.Vim do
 
   defp map_keys(m, f), do: Map.new(m, fn {k, v} -> {f.(k), v} end)
   defp map_values(m, f), do: Map.new(m, fn {k, v} -> {k, f.(v)} end)
+
+  defp nil_key?({nil, _}), do: true
+  defp nil_key?(_), do: false
 end
