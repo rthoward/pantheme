@@ -136,8 +136,8 @@ defmodule ChromaBabel.Parser.Vim do
     |> map_values(&style/1)
   end
 
-  defp attr(:guifg), do: :foreground
-  defp attr(:guibg), do: :background
+  defp attr(:guifg), do: :fg
+  defp attr(:guibg), do: :bg
   defp attr(:guisp), do: :special
   defp attr(:gui), do: :style
   defp attr(:name), do: nil

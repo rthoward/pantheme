@@ -62,8 +62,8 @@ defmodule ChromaBabel.Parser.VimTest do
       assert %{
                highlights: %{
                  "Normal" => %{
-                   foreground: "#B4BDC3",
-                   background: "#1C1917",
+                   fg: "#B4BDC3",
+                   bg: "#1C1917",
                    special: nil,
                    style: nil
                  }
@@ -75,8 +75,8 @@ defmodule ChromaBabel.Parser.VimTest do
       assert %{
                highlights: %{
                  "Comment" => %{
-                   foreground: "#6E6763",
-                   background: nil,
+                   fg: "#6E6763",
+                   bg: nil,
                    special: nil,
                    style: nil
                  }
@@ -88,8 +88,8 @@ defmodule ChromaBabel.Parser.VimTest do
       assert %{
                highlights: %{
                  "Todo" => %{
-                   foreground: nil,
-                   background: nil,
+                   fg: nil,
+                   bg: nil,
                    special: nil,
                    style: [:bold, :underline]
                  }
