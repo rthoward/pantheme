@@ -59,27 +59,39 @@ defmodule ChromaBabel.Parser.VimTest do
     end
 
     test "normalizes highlights", %{normalized: normalized} do
-
-      # assert %{
-      #          highlights: %{
-      #            "Normal" => %{
-      #              foreground: "#B4BDC3",
-      #              background: "#1C1917",
-      #              special: [],
-      #              style: []
-      #            }
-      #          }
-      #        } = normalized
+      assert %{
+               highlights: %{
+                 "Normal" => %{
+                   foreground: "#B4BDC3",
+                   background: "#1C1917",
+                   special: nil,
+                   style: nil
+                 }
+               }
+             } = normalized
     end
 
-    test "I dunno", %{normalized: normalized} do
+    test "consolidates overlapping highlights", %{normalized: normalized} do
       assert %{
                highlights: %{
                  "Comment" => %{
                    foreground: "#6E6763",
                    background: nil,
-                   special: [],
-                   style: [:italic]
+                   special: nil,
+                   style: nil
+                 }
+               }
+             } = normalized
+    end
+
+    test "can handle multiple styles", %{normalized: normalized} do
+      assert %{
+               highlights: %{
+                 "Todo" => %{
+                   foreground: nil,
+                   background: nil,
+                   special: nil,
+                   style: [:bold, :underline]
                  }
                }
              } = normalized
