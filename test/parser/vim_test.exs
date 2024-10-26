@@ -39,7 +39,7 @@ defmodule ChromaBabel.Parser.VimTest do
                  cterm: ["italic"]
                }
                | _
-             ] = Keyword.get_values(parsed, :highlight_color)
+             ] = Keyword.get_values(parsed, :highlight)
 
       assert %{to: "ModeMsg", from: "Normal"} = parsed[:highlight_link]
     end
