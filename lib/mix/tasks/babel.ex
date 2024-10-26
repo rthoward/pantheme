@@ -33,8 +33,9 @@ defmodule Mix.Tasks.Babel do
     {:ok, normalized} = Parser.Vim.normalize(parsed)
 
     output =
-      opts
-      |> Emitter.Zed.emit(normalized)
+      normalized
+      |> Parser.Vim.to_ast()
+      |> Emitter.Zed.emit(opts)
       |> Jason.encode!()
       |> Jason.Formatter.pretty_print()
 

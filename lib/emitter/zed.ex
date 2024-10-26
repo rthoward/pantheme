@@ -1,13 +1,8 @@
 defmodule ChromaBabel.Emitter.Zed do
-  defp fg(n, h),
-    do: (n.highlights[h] || n.highlights["Normal"]).foreground
+  alias ChromaBabel.AST
 
-  defp tc(n, i),
-    do: Enum.at(n.term_colors, i)
-
-  def emit(opts, n) do
-    fg(n, "Normal")
-
+  @spec emit(AST.t(), keyword()) :: map()
+  def emit(ast, opts) do
     %{
       "$schema" => "https://zed.dev/schema/themes/v0.1.0.json",
       "name" => opts[:name],
@@ -17,383 +12,378 @@ defmodule ChromaBabel.Emitter.Zed do
           "name" => opts[:name],
           "appearance" => opts[:appearance],
           "style" => %{
-            "border" => "#56505eff",
-            "border.variant" => "#332f38ff",
-            "border.focused" => "#222953ff",
-            "border.selected" => "#222953ff",
-            "border.transparent" => "#00000000",
-            "border.disabled" => "#48434fff",
-            "elevated_surface.background" => "#221f26ff",
-            "surface.background" => "#221f26ff",
-            "background" => "#ff0000",
-            "element.background" => "#221f26ff",
-            "element.hover" => "#332f38ff",
-            "element.active" => "#544f5cff",
-            "element.selected" => "#544f5cff",
-            "element.disabled" => "#221f26ff",
+            "border" => ast.ui.border.color,
+            "border.variant" => ast.ui.border.variant,
+            "border.focused" => ast.ui.border.focused,
+            "border.selected" => ast.ui.border.selected,
+            "border.transparent" => ast.ui.border.transparent,
+            "border.disabled" => ast.ui.border.disabled,
+            "elevated_surface.background" => ast.ui.bg,
+            "surface.background" => ast.ui.bg,
+            "background" => ast.ui.bg,
+            "element.background" => ast.ui.element.color,
+            "element.hover" => ast.ui.element.hover,
+            "element.active" => ast.ui.element.active,
+            "element.selected" => ast.ui.element.selected,
+            "element.disabled" => ast.ui.element.disabled,
             "drop_target.background" => "#89859180",
-            "ghost_element.background" => "#00000000",
-            "ghost_element.hover" => "#332f38ff",
-            "ghost_element.active" => "#544f5cff",
-            "ghost_element.selected" => "#544f5cff",
-            "ghost_element.disabled" => "#221f26ff",
-            "text" => "#efecf4ff",
-            "text.muted" => "#898591ff",
-            "text.placeholder" => "#756f7eff",
-            "text.disabled" => "#756f7eff",
-            "text.accent" => "#566ddaff",
-            "icon" => "#efecf4ff",
-            "icon.muted" => "#898591ff",
-            "icon.disabled" => "#756f7eff",
-            "icon.placeholder" => "#898591ff",
-            "icon.accent" => "#566ddaff",
-            "status_bar.background" => "#3a353fff",
-            "title_bar.background" => "#3a353fff",
-            "title_bar.inactive_background" => "#221f26ff",
-            "toolbar.background" => "#19171cff",
-            "tab_bar.background" => "#221f26ff",
-            "tab.inactive_background" => "#221f26ff",
-            "tab.active_background" => "#19171cff",
-            "search.match_background" => "#576dda66",
-            "panel.background" => "#221f26ff",
-            "panel.focused_border" => nil,
-            "pane.focused_border" => nil,
-            "scrollbar.thumb.background" => "#efecf44c",
-            "scrollbar.thumb.hover_background" => "#332f38ff",
-            "scrollbar.thumb.border" => "#332f38ff",
-            "scrollbar.track.background" => "#00000000",
-            "scrollbar.track.border" => "#201e24ff",
-            "editor.foreground" => "#e2dfe7ff",
-            "editor.background" => "#19171cff",
-            "editor.gutter.background" => "#19171cff",
+            "ghost_element.background" => ast.ui.ghost_element.color,
+            "ghost_element.hover" => ast.ui.ghost_element.hover,
+            "ghost_element.active" => ast.ui.ghost_element.active,
+            "ghost_element.selected" => ast.ui.ghost_element.selected,
+            "ghost_element.disabled" => ast.ui.ghost_element.disabled,
+            "text" => ast.ui.text.fg,
+            "text.accent" => ast.ui.text.fg_accent,
+            "text.disabled" => ast.ui.text.fg_disabled,
+            "text.muted" => ast.ui.text.fg_muted,
+            "text.placeholder" => ast.ui.text.fg_placeholder,
+            "icon" => ast.ui.icon.fg,
+            "icon.accent" => ast.ui.icon.fg_accent,
+            "icon.disabled" => ast.ui.icon.fg_disabled,
+            "icon.muted" => ast.ui.icon.fg_muted,
+            "icon.placeholder" => ast.ui.icon.fg_placeholder,
+            "status_bar.background" => ast.ui.status_bar_bg,
+            "title_bar.background" => ast.ui.title_bar_bg,
+            "title_bar.inactive_background" => ast.ui.title_bar_inactive_bg,
+            "toolbar.background" => ast.ui.toolbar_bg,
+            "tab_bar.background" => ast.ui.tab_bar_bg,
+            "tab.inactive_background" => ast.ui.tab_inactive_bg,
+            "tab.active_background" => ast.ui.tab_active_bg,
+            "search.match_background" => ast.ui.search_match_bg,
+            "panel.background" => ast.ui.border.color,
+            "panel.focused_border" => ast.ui.border.focused,
+            "pane.focused_border" => ast.ui.border.focused,
+            "scrollbar.thumb.background" => ast.ui.scrollbar_thumb_bg,
+            "scrollbar.thumb.hover_background" => ast.ui.scrollbar_thumb_hover_bg,
+            "scrollbar.thumb.border" => ast.ui.scrollbar_thumb_border,
+            "scrollbar.track.background" => ast.ui.scrollbar_track_bg,
+            "scrollbar.track.border" => ast.ui.scrollbar_track_border,
+            "editor.foreground" => ast.editor.fg,
+            "editor.background" => ast.editor.bg,
+            "editor.gutter.background" => ast.editor.bg,
             "editor.subheader.background" => "#221f26ff",
-            "editor.active_line.background" => "#221f26bf",
+            "editor.active_line.background" => ast.editor.active_line_bg,
             "editor.highlighted_line.background" => "#221f26ff",
-            "editor.line_number" => "#efecf459",
-            "editor.active_line_number" => "#efecf4ff",
+            "editor.line_number" => ast.editor.line_number,
+            "editor.active_line_number" => ast.editor.line_number_active,
             "editor.invisible" => "#726c7aff",
             "editor.wrap_guide" => "#efecf40d",
             "editor.active_wrap_guide" => "#efecf41a",
             "editor.document_highlight.read_background" => "#566dda1a",
             "editor.document_highlight.write_background" => "#726c7a66",
-            "terminal.background" => "#19171cff",
-            "terminal.foreground" => "#efecf4ff",
-            "terminal.bright_foreground" => "#efecf4ff",
-            "terminal.dim_foreground" => "#19171cff",
-            "terminal.ansi.black" => "#19171cff",
-            "terminal.ansi.bright_black" => "#635d6bff",
-            "terminal.ansi.dim_black" => "#efecf4ff",
-            "terminal.ansi.red" => "#be4677ff",
-            "terminal.ansi.bright_red" => "#5c283cff",
-            "terminal.ansi.dim_red" => "#e3a4b9ff",
-            "terminal.ansi.green" => "#2b9292ff",
-            "terminal.ansi.bright_green" => "#1f4747ff",
-            "terminal.ansi.dim_green" => "#9dc8c8ff",
-            "terminal.ansi.yellow" => "#a06d3aff",
-            "terminal.ansi.bright_yellow" => "#4e3821ff",
-            "terminal.ansi.dim_yellow" => "#d4b499ff",
-            "terminal.ansi.blue" => "#566ddaff",
-            "terminal.ansi.bright_blue" => "#2d376fff",
-            "terminal.ansi.dim_blue" => "#b3b3eeff",
-            "terminal.ansi.magenta" => "#bf41bfff",
-            "terminal.ansi.bright_magenta" => "#60255aff",
-            "terminal.ansi.dim_magenta" => "#e3a4dfff",
-            "terminal.ansi.cyan" => "#3a8bc6ff",
-            "terminal.ansi.bright_cyan" => "#26435eff",
-            "terminal.ansi.dim_cyan" => "#a6c4e3ff",
-            "terminal.ansi.white" => "#efecf4ff",
-            "terminal.ansi.bright_white" => "#efecf4ff",
-            "terminal.ansi.dim_white" => "#807b89ff",
+            "terminal.background" => ast.term.bg,
+            "terminal.foreground" => ast.term.fg.normal,
+            "terminal.bright_foreground" => ast.term.fg.bright,
+            "terminal.dim_foreground" => ast.term.fg.dim,
+            "terminal.ansi.black" => ast.term.black.normal,
+            "terminal.ansi.bright_black" => ast.term.black.bright,
+            "terminal.ansi.dim_black" => ast.term.black.dim,
+            "terminal.ansi.red" => ast.term.red.normal,
+            "terminal.ansi.bright_red" => ast.term.red.bright,
+            "terminal.ansi.dim_red" => ast.term.red.dim,
+            "terminal.ansi.green" => ast.term.green.normal,
+            "terminal.ansi.bright_green" => ast.term.green.bright,
+            "terminal.ansi.dim_green" => ast.term.green.dim,
+            "terminal.ansi.yellow" => ast.term.yellow.normal,
+            "terminal.ansi.bright_yellow" => ast.term.yellow.bright,
+            "terminal.ansi.dim_yellow" => ast.term.yellow.dim,
+            "terminal.ansi.blue" => ast.term.blue.normal,
+            "terminal.ansi.bright_blue" => ast.term.blue.bright,
+            "terminal.ansi.dim_blue" => ast.term.blue.dim,
+            "terminal.ansi.magenta" => ast.term.magenta.normal,
+            "terminal.ansi.bright_magenta" => ast.term.magenta.bright,
+            "terminal.ansi.dim_magenta" => ast.term.magenta.dim,
+            "terminal.ansi.cyan" => ast.term.cyan.normal,
+            "terminal.ansi.bright_cyan" => ast.term.cyan.bright,
+            "terminal.ansi.dim_cyan" => ast.term.cyan.dim,
+            "terminal.ansi.white" => ast.term.white.normal,
+            "terminal.ansi.bright_white" => ast.term.white.bright,
+            "terminal.ansi.dim_white" => ast.term.white.dim,
             "link_text.hover" => "#566ddaff",
-            "conflict" => "#a06d3aff",
-            "conflict.background" => "#231a12ff",
-            "conflict.border" => "#392a19ff",
-            "created" => "#2b9292ff",
-            "created.background" => "#132020ff",
-            "created.border" => "#1a3333ff",
-            "deleted" => "#be4677ff",
-            "deleted.background" => "#28151cff",
-            "deleted.border" => "#421e2dff",
-            "error" => "#be4677ff",
-            "error.background" => "#28151cff",
-            "error.border" => "#421e2dff",
-            "hidden" => "#756f7eff",
-            "hidden.background" => "#3a353fff",
-            "hidden.border" => "#48434fff",
-            "hint" => "#706897ff",
-            "hint.background" => "#161a35ff",
-            "hint.border" => "#222953ff",
-            "ignored" => "#756f7eff",
-            "ignored.background" => "#3a353fff",
-            "ignored.border" => "#56505eff",
-            "info" => "#566ddaff",
-            "info.background" => "#161a35ff",
-            "info.border" => "#222953ff",
-            "modified" => "#a06d3aff",
-            "modified.background" => "#231a12ff",
-            "modified.border" => "#392a19ff",
-            "predictive" => "#615787ff",
-            "predictive.background" => "#132020ff",
-            "predictive.border" => "#1a3333ff",
-            "renamed" => "#566ddaff",
-            "renamed.background" => "#161a35ff",
-            "renamed.border" => "#222953ff",
-            "success" => "#2b9292ff",
-            "success.background" => "#132020ff",
-            "success.border" => "#1a3333ff",
-            "unreachable" => "#898591ff",
-            "unreachable.background" => "#3a353fff",
-            "unreachable.border" => "#56505eff",
-            "warning" => "#a06d3aff",
-            "warning.background" => "#231a12ff",
-            "warning.border" => "#392a19ff",
+
+            # Containers
+            "conflict" => ast.ui.conflict.fg,
+            "conflict.background" => ast.ui.conflict.bg,
+            "conflict.border" => ast.ui.conflict.border,
+            "created" => ast.ui.created.fg,
+            "created.background" => ast.ui.created.bg,
+            "created.border" => ast.ui.created.border,
+            "deleted" => ast.ui.deleted.fg,
+            "deleted.background" => ast.ui.deleted.bg,
+            "deleted.border" => ast.ui.deleted.border,
+            "error" => ast.ui.error.fg,
+            "error.background" => ast.ui.error.bg,
+            "error.border" => ast.ui.error.border,
+            "hidden" => ast.ui.hidden.fg,
+            "hidden.background" => ast.ui.hidden.bg,
+            "hidden.border" => ast.ui.hidden.border,
+            "hint" => ast.ui.hint.fg,
+            "hint.background" => ast.ui.hint.bg,
+            "hint.border" => ast.ui.hint.border,
+            "ignored" => ast.ui.ignored.fg,
+            "ignored.background" => ast.ui.ignored.bg,
+            "ignored.border" => ast.ui.ignored.border,
+            "info" => ast.ui.info.fg,
+            "info.background" => ast.ui.info.bg,
+            "info.border" => ast.ui.info.border,
+            "modified" => ast.ui.modified.fg,
+            "modified.background" => ast.ui.modified.bg,
+            "modified.border" => ast.ui.modified.border,
+            "predictive" => ast.ui.predictive.fg,
+            "predictive.background" => ast.ui.predictive.bg,
+            "predictive.border" => ast.ui.predictive.border,
+            "renamed" => ast.ui.renamed.fg,
+            "renamed.background" => ast.ui.renamed.bg,
+            "renamed.border" => ast.ui.renamed.border,
+            "success" => ast.ui.success.fg,
+            "success.background" => ast.ui.success.bg,
+            "success.border" => ast.ui.success.border,
+            "unreachable" => ast.ui.unreachable.fg,
+            "unreachable.background" => ast.ui.unreachable.bg,
+            "unreachable.border" => ast.ui.unreachable.border,
+            "warning" => ast.ui.warning.fg,
+            "warning.background" => ast.ui.warning.bg,
+            "warning.border" => ast.ui.warning.border,
+
+            # Players
             "players" => [
               %{
-                "cursor" => "#566ddaff",
-                "background" => "#566ddaff",
-                "selection" => "#566dda3d"
+                # TODO
+                "cursor" => ast.term.blue.normal,
+                "background" => ast.editor.bg,
+                "selection" => ast.editor.selection_bg
               },
               %{
-                "cursor" => "#bf41bfff",
-                "background" => "#bf41bfff",
-                "selection" => "#bf41bf3d"
+                "cursor" => ast.term.green.normal,
+                "background" => ast.term.green.normal,
+                "selection" => ast.term.green.bright
               },
               %{
-                "cursor" => "#aa563bff",
-                "background" => "#aa563bff",
-                "selection" => "#aa563b3d"
+                "cursor" => ast.term.yellow.normal,
+                "background" => ast.term.yellow.normal,
+                "selection" => ast.term.yellow.bright
               },
               %{
-                "cursor" => "#955ae6ff",
-                "background" => "#955ae6ff",
-                "selection" => "#955ae63d"
+                "cursor" => ast.term.red.normal,
+                "background" => ast.term.red.normal,
+                "selection" => ast.term.red.bright
               },
               %{
-                "cursor" => "#3a8bc6ff",
-                "background" => "#3a8bc6ff",
-                "selection" => "#3a8bc63d"
+                "cursor" => ast.term.magenta.normal,
+                "background" => ast.term.magenta.normal,
+                "selection" => ast.term.magenta.bright
               },
               %{
-                "cursor" => "#be4677ff",
-                "background" => "#be4677ff",
-                "selection" => "#be46773d"
-              },
-              %{
-                "cursor" => "#a06d3aff",
-                "background" => "#a06d3aff",
-                "selection" => "#a06d3a3d"
-              },
-              %{
-                "cursor" => "#2b9292ff",
-                "background" => "#2b9292ff",
-                "selection" => "#2b92923d"
+                "cursor" => ast.term.cyan.normal,
+                "background" => ast.term.cyan.normal,
+                "selection" => ast.term.cyan.bright
               }
             ],
             "syntax" => %{
               "attribute" => %{
-                "color" => "#566ddaff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.attribute.fg,
+                "font_style" => ast.syntax.attribute.style,
+                "font_weight" => ast.syntax.attribute.weight
               },
               "boolean" => %{
-                "color" => "#2b9292ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.boolean.fg,
+                "font_style" => ast.syntax.boolean.style,
+                "font_weight" => ast.syntax.boolean.weight
               },
               "comment" => %{
-                "color" => "#655f6dff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.comment.fg,
+                "font_style" => ast.syntax.comment.style,
+                "font_weight" => ast.syntax.comment.weight
               },
               "comment.doc" => %{
-                "color" => "#8b8792ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.docstring.fg,
+                "font_style" => ast.syntax.docstring.style,
+                "font_weight" => ast.syntax.docstring.weight
               },
               "constant" => %{
-                "color" => "#2b9292ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.constant.fg,
+                "font_style" => ast.syntax.constant.style,
+                "font_weight" => ast.syntax.constant.weight
               },
               "constructor" => %{
-                "color" => "#566ddaff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.constructor.fg,
+                "font_style" => ast.syntax.constructor.style,
+                "font_weight" => ast.syntax.constructor.weight
               },
               "embedded" => %{
-                "color" => "#efecf4ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.embedded.fg,
+                "font_style" => ast.syntax.embedded.style,
+                "font_weight" => ast.syntax.embedded.weight
               },
               "emphasis" => %{
-                "color" => "#566ddaff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.emphasis.fg,
+                "font_style" => ast.syntax.emphasis.style,
+                "font_weight" => ast.syntax.emphasis.weight
               },
               "emphasis.strong" => %{
-                "color" => "#566ddaff",
-                "font_style" => nil,
-                "font_weight" => 700
+                "color" => ast.syntax.emphasis_strong.fg,
+                "font_style" => ast.syntax.emphasis_strong.style,
+                "font_weight" => ast.syntax.emphasis_strong.weight
               },
               "enum" => %{
-                "color" => "#aa563bff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.enum.fg,
+                "font_style" => ast.syntax.enum.style,
+                "font_weight" => ast.syntax.enum.weight
               },
               "function" => %{
-                "color" => "#576cdbff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.function.fg,
+                "font_style" => ast.syntax.function.style,
+                "font_weight" => ast.syntax.function.weight
               },
               "function.method" => %{
-                "color" => "#576cdbff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.method.fg,
+                "font_style" => ast.syntax.method.style,
+                "font_weight" => ast.syntax.method.weight
               },
               "function.special.definition" => %{
-                "color" => "#a06d3aff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.function_def.fg,
+                "font_style" => ast.syntax.function_def.style,
+                "font_weight" => ast.syntax.function_def.weight
               },
               "hint" => %{
-                "color" => "#706897ff",
-                "font_style" => nil,
-                "font_weight" => 700
+                "color" => ast.syntax.hint.fg,
+                "font_style" => ast.syntax.hint.style,
+                "font_weight" => ast.syntax.hint.weight
               },
               "keyword" => %{
-                "color" => "#9559e7ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.keyword.fg,
+                "font_style" => ast.syntax.keyword.style,
+                "font_weight" => ast.syntax.keyword.weight
               },
               "label" => %{
-                "color" => "#566ddaff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.label.fg,
+                "font_style" => ast.syntax.label.style,
+                "font_weight" => ast.syntax.label.weight
               },
               "link_text" => %{
-                "color" => "#aa563bff",
-                "font_style" => "italic",
-                "font_weight" => nil
+                "color" => ast.syntax.link_text.fg,
+                "font_style" => ast.syntax.link_text.style,
+                "font_weight" => ast.syntax.link_text.weight
               },
               "link_uri" => %{
-                "color" => "#2b9292ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.link_uri.fg,
+                "font_style" => ast.syntax.link_uri.style,
+                "font_weight" => ast.syntax.link_uri.weight
               },
               "number" => %{
-                "color" => "#aa563bff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.number.fg,
+                "font_style" => ast.syntax.number.style,
+                "font_weight" => ast.syntax.number.weight
               },
               "operator" => %{
-                "color" => "#8b8792ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.operator.fg,
+                "font_style" => ast.syntax.operator.style,
+                "font_weight" => ast.syntax.operator.weight
               },
               "predictive" => %{
-                "color" => "#615787ff",
-                "font_style" => "italic",
-                "font_weight" => nil
+                "color" => ast.syntax.predictive.fg,
+                "font_style" => ast.syntax.predictive.style,
+                "font_weight" => ast.syntax.predictive.weight
               },
               "preproc" => %{
-                "color" => "#efecf4ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.preproc.fg,
+                "font_style" => ast.syntax.preproc.style,
+                "font_weight" => ast.syntax.preproc.weight
               },
               "primary" => %{
-                "color" => "#e2dfe7ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.primary.fg,
+                "font_style" => ast.syntax.primary.style,
+                "font_weight" => ast.syntax.primary.weight
               },
               "property" => %{
-                "color" => "#be4677ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.property.fg,
+                "font_style" => ast.syntax.property.style,
+                "font_weight" => ast.syntax.property.weight
               },
               "punctuation" => %{
-                "color" => "#e2dfe7ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.punct.fg,
+                "font_style" => ast.syntax.punct.style,
+                "font_weight" => ast.syntax.punct.weight
               },
               "punctuation.bracket" => %{
-                "color" => "#8b8792ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.punct_bracket.fg,
+                "font_style" => ast.syntax.punct_bracket.style,
+                "font_weight" => ast.syntax.punct_bracket.weight
               },
               "punctuation.delimiter" => %{
-                "color" => "#8b8792ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.punct_delimiter.fg,
+                "font_style" => ast.syntax.punct_delimiter.style,
+                "font_weight" => ast.syntax.punct_delimiter.weight
               },
               "punctuation.list_marker" => %{
-                "color" => "#e2dfe7ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.punct_list_marker.fg,
+                "font_style" => ast.syntax.punct_list_marker.style,
+                "font_weight" => ast.syntax.punct_list_marker.weight
               },
               "punctuation.special" => %{
-                "color" => "#bf3fbfff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.punct_special.fg,
+                "font_style" => ast.syntax.punct_special.style,
+                "font_weight" => ast.syntax.punct_special.weight
               },
               "string" => %{
-                "color" => "#299292ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.string.fg,
+                "font_style" => ast.syntax.string.style,
+                "font_weight" => ast.syntax.string.weight
               },
               "string.escape" => %{
-                "color" => "#8b8792ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.string_escape.fg,
+                "font_style" => ast.syntax.string_escape.style,
+                "font_weight" => ast.syntax.string_escape.weight
               },
               "string.regex" => %{
-                "color" => "#388bc6ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.string_regex.fg,
+                "font_style" => ast.syntax.string_regex.style,
+                "font_weight" => ast.syntax.string_regex.weight
               },
               "string.special" => %{
-                "color" => "#bf3fbfff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.string_special.fg,
+                "font_style" => ast.syntax.string_special.style,
+                "font_weight" => ast.syntax.string_special.weight
               },
               "string.special.symbol" => %{
-                "color" => "#299292ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.string_symbol.fg,
+                "font_style" => ast.syntax.string_symbol.style,
+                "font_weight" => ast.syntax.string_symbol.weight
               },
               "tag" => %{
-                "color" => "#566ddaff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.tag.fg,
+                "font_style" => ast.syntax.tag.style,
+                "font_weight" => ast.syntax.tag.weight
               },
               "text.literal" => %{
-                "color" => "#aa563bff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.text_literal.fg,
+                "font_style" => ast.syntax.text_literal.style,
+                "font_weight" => ast.syntax.text_literal.weight
               },
               "title" => %{
-                "color" => "#efecf4ff",
-                "font_style" => nil,
-                "font_weight" => 700
+                "color" => ast.syntax.title.fg,
+                "font_style" => ast.syntax.title.style,
+                "font_weight" => ast.syntax.title.weight
               },
               "type" => %{
-                "color" => "#a06d3aff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.title.fg,
+                "font_style" => ast.syntax.title.style,
+                "font_weight" => ast.syntax.title.weight
               },
               "variable" => %{
-                "color" => "#e2dfe7ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.variable.fg,
+                "font_style" => ast.syntax.variable.style,
+                "font_weight" => ast.syntax.variable.weight
               },
               "variable.special" => %{
-                "color" => "#9559e7ff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.variable_special.fg,
+                "font_style" => ast.syntax.variable_special.style,
+                "font_weight" => ast.syntax.variable_special.weight
               },
               "variant" => %{
-                "color" => "#a06d3aff",
-                "font_style" => nil,
-                "font_weight" => nil
+                "color" => ast.syntax.variant.fg,
+                "font_style" => ast.syntax.variant.style,
+                "font_weight" => ast.syntax.variant.weight
               }
             }
           }
