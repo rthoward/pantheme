@@ -262,7 +262,17 @@ defmodule ChromaBabel.AST do
   end
 
   defmodule Editor do
-    @type t :: %__MODULE__{}
+    @type t :: %__MODULE__{
+            bg: String.t(),
+            fg: String.t(),
+            line_number: String.t(),
+            line_number_active: String.t(),
+            active_line_bg: String.t(),
+            selection_bg: String.t(),
+            selection_fg: String.t(),
+            highlighted_line_bg: String.t(),
+            subheader_bg: String.t()
+          }
 
     defstruct [
       :fg,
@@ -272,7 +282,6 @@ defmodule ChromaBabel.AST do
       :active_line_bg,
       :selection_bg,
       :selection_fg,
-      :gutter,
       :highlighted_line_bg,
       :subheader_bg
     ]
