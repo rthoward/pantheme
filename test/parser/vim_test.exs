@@ -1,7 +1,7 @@
-defmodule ChromaBabel.Parser.VimTest do
+defmodule PanTheme.Parser.VimTest do
   use ExUnit.Case
 
-  alias ChromaBabel.Parser
+  alias PanTheme.Parser
 
   describe "parse/1" do
     test "parses a vim color theme" do

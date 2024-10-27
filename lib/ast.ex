@@ -1,4 +1,4 @@
-defmodule ChromaBabel.AST do
+defmodule PanTheme.AST do
   defmodule Container do
     @type t :: %__MODULE__{
             fg: String.t(),

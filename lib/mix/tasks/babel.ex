@@ -1,8 +1,8 @@
 defmodule Mix.Tasks.Babel do
   use Mix.Task
 
-  alias ChromaBabel.Parser
-  alias ChromaBabel.Emitter
+  alias PanTheme.Parser
+  alias PanTheme.Emitter
 
   @aliases [
     i: :input,

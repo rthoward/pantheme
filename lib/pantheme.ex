@@ -1,6 +1,6 @@
-# defmodule ChromaBabel do
+# defmodule PanTheme do
 #   @moduledoc """
-#   Documentation for `ChromaBabel`.
+#   Documentation for `PanTheme`.
 #   """
 
 #   @doc """
@@ -8,7 +8,7 @@
 
 #   ## Examples
 
-#       iex> ChromaBabel.hello()
+#       iex> PanTheme.hello()
 #       :world
 
 #   """

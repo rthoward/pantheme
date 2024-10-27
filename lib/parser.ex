@@ -1,2 +1,2 @@
-defmodule ChromaBabel.Parser do
+defmodule PanTheme.Parser do
 end

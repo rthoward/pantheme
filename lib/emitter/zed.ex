@@ -1,5 +1,5 @@
-defmodule ChromaBabel.Emitter.Zed do
-  alias ChromaBabel.AST
+defmodule PanTheme.Emitter.Zed do
+  alias PanTheme.AST
 
   @spec emit(AST.t(), keyword()) :: map()
   def emit(ast, opts) do

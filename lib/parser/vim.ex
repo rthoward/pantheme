@@ -1,7 +1,7 @@
-defmodule ChromaBabel.Parser.Vim do
+defmodule PanTheme.Parser.Vim do
   import NimbleParsec
 
-  alias ChromaBabel.AST
+  alias PanTheme.AST
 
   require Logger
 

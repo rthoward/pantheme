@@ -1,9 +1,9 @@
-defmodule ChromaBabel.MixProject do
+defmodule PanTheme.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :chroma_babel,
+      app: :pantheme,
       version: "0.1.0",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
