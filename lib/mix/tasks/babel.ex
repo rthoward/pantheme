@@ -4,11 +4,6 @@ defmodule Mix.Tasks.Babel do
   alias PanTheme.Parser
   alias PanTheme.Emitter
 
-  @aliases [
-    i: :input,
-    o: :output
-  ]
-
   @switches [
     input: :string,
     output: :string,
@@ -18,7 +13,7 @@ defmodule Mix.Tasks.Babel do
   ]
 
   def run(args \\ []) do
-    {opts, _} = OptionParser.parse!(args, strict: @switches, aliases: @aliases)
+    {opts, _} = OptionParser.parse!(args, strict: @switches)
 
     opts =
       opts
