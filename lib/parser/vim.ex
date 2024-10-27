@@ -221,14 +221,14 @@ defmodule PanTheme.Parser.Vim do
           border: hi(hs, "FloatBorder", :bg)
         },
         created: %AST.Container{
-          fg: hi(hs, "DiffAdd", :bg),
-          bg: hi(hs, "DiffAdd", :fg),
-          border: hi(hs, "DiffAdd", :bg)
+          fg: hi(hs, "GitSignsAdd", :fg),
+          bg: hi(hs, "GitSignsAdd", :fg),
+          border: hi(hs, "GitSignsAdd", :fg)
         },
         deleted: %AST.Container{
-          fg: hi(hs, "DiffDelete", :bg),
-          bg: hi(hs, "DiffDelete", :bg),
-          border: hi(hs, "DiffDelete", :bg)
+          fg: hi(hs, "GitSignsDelete", :fg),
+          bg: hi(hs, "GitSignsDelete", :fg),
+          border: hi(hs, "GitSignsDelete", :fg)
         },
         drop_target_bg: hi(hs, "Normal", :bg),
         element: %AST.Element{
@@ -285,9 +285,9 @@ defmodule PanTheme.Parser.Vim do
         },
         link_text_hover: hi(hs, "Normal", :fg),
         modified: %AST.Container{
-          fg: hi(hs, "DiffChange", :bg),
-          bg: hi(hs, "DiffChange", :bg),
-          border: hi(hs, "DiffChange", :bg)
+          fg: hi(hs, "GitSignsChange", :fg),
+          bg: hi(hs, "GitSignsChange", :fg),
+          border: hi(hs, "GitSignsChange", :fg)
         },
         predictive: %AST.Container{
           fg: hi(hs, "Normal", :fg),
