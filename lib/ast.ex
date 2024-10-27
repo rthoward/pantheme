@@ -85,7 +85,9 @@ defmodule ChromaBabel.AST do
             scrollbar_track_border: String.t(),
             toolbar_bg: String.t(),
             unreachable: Container.t(),
-            warning: Container.t()
+            warning: Container.t(),
+            panel_bg: String.t(),
+            panel_focused_bg: String.t()
           }
 
     defstruct [
@@ -124,7 +126,9 @@ defmodule ChromaBabel.AST do
       :scrollbar_track_bg,
       :scrollbar_track_border,
       :unreachable,
-      :warning
+      :warning,
+      :panel_bg,
+      :panel_focused_bg
     ]
   end
 
@@ -268,7 +272,9 @@ defmodule ChromaBabel.AST do
       :active_line_bg,
       :selection_bg,
       :selection_fg,
-      :gutter
+      :gutter,
+      :highlighted_line_bg,
+      :subheader_bg
     ]
   end
 

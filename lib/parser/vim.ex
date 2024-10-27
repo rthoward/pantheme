@@ -165,11 +165,13 @@ defmodule ChromaBabel.Parser.Vim do
       editor: %AST.Editor{
         bg: hi(hs, "Normal", :bg),
         fg: hi(hs, "Normal", :fg),
+        highlighted_line_bg: hi(hs, ["CursorLine"], :bg),
         line_number: hi(hs, "LineNumberNC", :fg),
         line_number_active: hi(hs, "LineNumber", :fg),
         active_line_bg: hi(hs, "CursorLine", :bg),
         selection_fg: hi(hs, "Visual", :fg),
         selection_bg: hi(hs, "Visual", :bg),
+        subheader_bg: hi(hs, ["Pmenu"], :bg),
         gutter: %{}
       },
       ui: %AST.UI{
@@ -198,20 +200,22 @@ defmodule ChromaBabel.Parser.Vim do
           transparent: hi(hs, ["Conceal", "NormalFloat"], :fg),
           variant: hi(hs, ["Special"], :fg)
         },
+        panel_bg: hi(hs, ["StatusLine"], :bg),
+        panel_focused_bg: hi(hs, ["Pmenu"], :bg),
         conflict: %AST.Container{
           fg: hi(hs, "DiffText", :fg),
           bg: hi(hs, "DiffChange", :bg),
           border: hi(hs, "FloatBorder", :bg)
         },
         created: %AST.Container{
-          fg: hi(hs, "DiffText", :fg),
-          bg: hi(hs, "DiffAdd", :bg),
-          border: hi(hs, "FloatBorder", :bg)
+          fg: hi(hs, "DiffAdd", :bg),
+          bg: hi(hs, "DiffAdd", :fg),
+          border: hi(hs, "DiffAdd", :bg)
         },
         deleted: %AST.Container{
-          fg: hi(hs, "DiffText", :fg),
+          fg: hi(hs, "DiffDelete", :bg),
           bg: hi(hs, "DiffDelete", :bg),
-          border: hi(hs, "FloatBorder", :bg)
+          border: hi(hs, "DiffDelete", :bg)
         },
         drop_target_bg: hi(hs, "Normal", :bg),
         element: %AST.Element{
@@ -225,9 +229,9 @@ defmodule ChromaBabel.Parser.Vim do
           variant: hi(hs, "Special", :fg)
         },
         error: %AST.Container{
-          fg: hi(hs, "DiagnosticError", :fg),
-          bg: hi(hs, "DiagnosticError", :bg),
-          border: hi(hs, "DiagnosticError", :bg)
+          fg: hi(hs, ["DiagnosticError", "Error"], :fg),
+          bg: hi(hs, ["DiagnosticError", "Error"], :bg),
+          border: hi(hs, ["DiagnosticError", "Error"], :bg)
         },
         ghost_element: %AST.Element{
           color: hi(hs, "Normal", :bg),
@@ -235,7 +239,7 @@ defmodule ChromaBabel.Parser.Vim do
           disabled: hi(hs, ["NonText", "StatusLineNC"], :fg),
           focused: hi(hs, ["CursorLine"], :bg),
           hover: hi(hs, ["PmenuSel"], :bg),
-          selected: hi(hs, ["Visual", "PmenuSel"], :fg),
+          selected: hi(hs, ["PmenuSel", "CursorLine"], :bg),
           transparent: hi(hs, "Conceal", :fg),
           variant: hi(hs, "Special", :fg)
         },
@@ -245,9 +249,9 @@ defmodule ChromaBabel.Parser.Vim do
           border: hi(hs, "Normal", :bg)
         },
         hint: %AST.Container{
-          fg: hi(hs, "Normal", :fg),
-          bg: hi(hs, "Normal", :bg),
-          border: hi(hs, "Normal", :bg)
+          fg: hi(hs, ["LspInlayHint", "Comment"], :fg),
+          bg: hi(hs, ["LspInlayHint", "Comment"], :bg),
+          border: hi(hs, ["LspInlayHint", "Comment"], :bg)
         },
         icon: %AST.Text{
           fg: hi(hs, "Normal", :fg),
@@ -268,9 +272,9 @@ defmodule ChromaBabel.Parser.Vim do
         },
         link_text_hover: hi(hs, "Normal", :fg),
         modified: %AST.Container{
-          fg: hi(hs, "DiffText", :fg),
+          fg: hi(hs, "DiffChange", :bg),
           bg: hi(hs, "DiffChange", :bg),
-          border: hi(hs, "FloatBorder", :bg)
+          border: hi(hs, "DiffChange", :bg)
         },
         predictive: %AST.Container{
           fg: hi(hs, "Normal", :fg),
