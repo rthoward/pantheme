@@ -3,6 +3,8 @@ defmodule ChromaBabel.Parser.Vim do
 
   alias ChromaBabel.AST
 
+  require Logger
+
   eol =
     choice([
       string("\r\n"),
@@ -123,7 +125,19 @@ defmodule ChromaBabel.Parser.Vim do
       parsed
       |> Keyword.get_values(:link)
       |> Map.new(fn %{from: from, to: to} ->
-        {to, highlights[from] || highlights["Normal"]}
+        resolved =
+          if match = highlights[from] do
+            match
+          else
+            Logger.debug(
+              "Couldn't resolve `highlight! link #{to} #{from}.` " <>
+                "#{from} not found. Defaulting to Normal."
+            )
+
+            highlights["Normal"]
+          end
+
+        {to, resolved}
       end)
 
     all_highlights = Map.merge(highlights, resolved_links)
