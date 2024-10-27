@@ -7,7 +7,7 @@ defmodule ChromaBabel.Parser.VimTest do
     test "parses a vim color theme" do
       assert {:ok, parsed, _, _, _, _} =
                __DIR__
-               |> Path.join("../support/files/zenbones.vim")
+               |> Path.join("../support/files/zenbones_dark.vim")
                |> File.read!()
                |> Parser.Vim.parse()
 
@@ -49,7 +49,7 @@ defmodule ChromaBabel.Parser.VimTest do
     setup do
       assert {:ok, parsed, _, _, _, _} =
                __DIR__
-               |> Path.join("../support/files/zenbones.vim")
+               |> Path.join("../support/files/zenbones_dark.vim")
                |> File.read!()
                |> Parser.Vim.parse()
 
