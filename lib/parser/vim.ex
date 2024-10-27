@@ -185,8 +185,7 @@ defmodule ChromaBabel.Parser.Vim do
         active_line_bg: hi(hs, "CursorLine", :bg),
         selection_fg: hi(hs, "Visual", :fg),
         selection_bg: hi(hs, "Visual", :bg),
-        subheader_bg: hi(hs, ["Pmenu"], :bg),
-        gutter: %{}
+        subheader_bg: hi(hs, ["Pmenu"], :bg)
       },
       ui: %AST.UI{
         bg: hi(hs, "Normal", :bg),
