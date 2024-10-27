@@ -40,5 +40,7 @@ defmodule Mix.Tasks.Babel do
       |> Jason.Formatter.pretty_print()
 
     File.write!(opts[:output], output)
+
+    Mix.shell.info("Wrote theme \"#{opts[:name]}\" to #{opts[:output]}.")
   end
 end
