@@ -248,10 +248,10 @@ defmodule PanTheme.Parser.Vim do
         },
         ghost_element: %AST.Element{
           color: hi(hs, "Normal", :bg),
-          active: hi(hs, ["Title", "Special"], :fg),
+          active: hi(hs, ["PmenuSel", "CursorLine"], :bg),
           disabled: hi(hs, ["NonText", "StatusLineNC"], :fg),
-          focused: hi(hs, ["CursorLine"], :bg),
-          hover: hi(hs, ["PmenuSel"], :bg),
+          focused: hi(hs, ["PmenuSel", "CursorLine"], :bg),
+          hover: hi(hs, ["PmenuThumb", "CursorLine"], :bg),
           selected: hi(hs, ["PmenuSel", "CursorLine"], :bg),
           transparent: hi(hs, "Conceal", :fg),
           variant: hi(hs, "Special", :fg)
