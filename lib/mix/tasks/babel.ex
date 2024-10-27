@@ -36,6 +36,6 @@ defmodule Mix.Tasks.Babel do
 
     File.write!(opts[:output], output)
 
-    Mix.shell.info("Wrote theme \"#{opts[:name]}\" to #{opts[:output]}.")
+    Mix.shell().info("Wrote theme \"#{opts[:name]}\" to #{opts[:output]}.")
   end
 end
