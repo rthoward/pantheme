@@ -179,7 +179,7 @@ defmodule Pantheme.Parser.Vim do
       |> Keyword.get_values(:link)
       |> Map.new(fn %{from: from, to: to} ->
         resolved = highlights[to] || highlights["Normal"]
-        {to, resolved}
+        {from, resolved}
       end)
 
     all_highlights = Map.merge(highlights, resolved_links)
