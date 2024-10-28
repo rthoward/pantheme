@@ -5,51 +5,49 @@ defmodule Pantheme.Parser.VimTest do
 
   describe "parse/1" do
     test "parses a vim color theme" do
-      assert {:ok, parsed, _, _, _, _} =
+      assert {:ok, parsed} =
                __DIR__
-               |> Path.join("../support/files/zenbones_dark.vim")
+               |> Path.join("../support/files/nvim/loaded.txt")
                |> File.read!()
                |> Parser.Vim.parse()
 
       assert %{index: 0, color: "#1C1917"} = parsed[:term_color]
 
-      assert [
-               %{
-                 name: "Normal",
-                 guifg: "#B4BDC3",
-                 guibg: "#1C1917",
-                 guisp: "NONE",
-                 gui: "NONE",
-                 cterm: "NONE"
-               },
-               %{
-                 name: "Bold",
-                 guifg: "NONE",
-                 guibg: "NONE",
-                 guisp: "NONE",
-                 gui: ["bold"],
-                 cterm: ["bold"]
-               },
-               %{
-                 name: "Boolean",
-                 guifg: "#B4BDC3",
-                 guibg: "NONE",
-                 guisp: "NONE",
-                 gui: ["italic"],
-                 cterm: ["italic"]
-               }
-               | _
-             ] = Keyword.get_values(parsed, :highlight)
+      assert %{
+               name: "Normal",
+               guifg: "#b4bdc3",
+               guibg: "#1c1917"
+             } =
+               parsed
+               |> Keyword.get_values(:highlight)
+               |> Enum.find(&(&1.name == "Normal"))
 
-      assert %{to: "ModeMsg", from: "Normal"} = parsed[:link]
+      assert %{
+               name: "Bold",
+               gui: ["bold"],
+               cterm: ["bold"]
+             } =
+               parsed
+               |> Keyword.get_values(:highlight)
+               |> Enum.find(&(&1.name == "Bold"))
+
+      assert %{
+               name: "Boolean",
+               guifg: "#b4bdc3",
+               gui: ["italic"],
+               cterm: ["italic"]
+             } =
+               parsed
+               |> Keyword.get_values(:highlight)
+               |> Enum.find(&(&1.name == "Boolean"))
     end
   end
 
   describe "normalize/1" do
     setup do
-      assert {:ok, parsed, _, _, _, _} =
+      assert {:ok, parsed} =
                __DIR__
-               |> Path.join("../support/files/zenbones_dark.vim")
+               |> Path.join("../support/files/nvim/loaded.txt")
                |> File.read!()
                |> Parser.Vim.parse()
 
@@ -62,10 +60,8 @@ defmodule Pantheme.Parser.VimTest do
       assert %{
                highlights: %{
                  "Normal" => %{
-                   fg: "#B4BDC3",
-                   bg: "#1C1917",
-                   special: nil,
-                   style: nil
+                   fg: "#b4bdc3",
+                   bg: "#1c1917"
                  }
                }
              } = normalized
@@ -75,10 +71,7 @@ defmodule Pantheme.Parser.VimTest do
       assert %{
                highlights: %{
                  "Comment" => %{
-                   fg: "#6E6763",
-                   bg: nil,
-                   special: nil,
-                   style: nil
+                   fg: "#6e6763"
                  }
                }
              } = normalized
@@ -88,9 +81,6 @@ defmodule Pantheme.Parser.VimTest do
       assert %{
                highlights: %{
                  "Todo" => %{
-                   fg: nil,
-                   bg: nil,
-                   special: nil,
                    style: [:bold, :underline]
                  }
                }
