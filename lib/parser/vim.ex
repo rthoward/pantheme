@@ -1,22 +1,29 @@
 defmodule PanTheme.Parser.Vim do
   import NimbleParsec
 
+  alias PanTheme.AST
+
   #
   # Load
   #
 
+  @opt_schema [
+    neovim_plugin: [type: :string, required: true],
+    neovim_colorscheme: [type: :string, required: true],
+    appearance: [type: {:in, ["dark", "light"]}, required: true],
+    *: [type: :any]
+  ]
+
   def load(opts) do
-    plugin = Keyword.fetch!(opts, :plugin)
-    colorscheme = Keyword.fetch!(opts, :colorscheme)
-    appearance = Keyword.fetch!(opts, :appearance)
+    opts = NimbleOptions.validate!(opts, @opt_schema)
 
     System.cmd(
       "nvim",
       ["--headless", "--clean", "-u", init_path()],
       env: [
-        {"PLUGIN", plugin},
-        {"COLORSCHEME", colorscheme},
-        {"APPEARANCE", appearance}
+        {"PLUGIN", opts[:neovim_plugin]},
+        {"COLORSCHEME", opts[:neovim_colorscheme]},
+        {"APPEARANCE", opts[:appearance]}
       ],
       stderr_to_stdout: true
     )
@@ -134,8 +141,6 @@ defmodule PanTheme.Parser.Vim do
     do: {:attr, {String.to_atom(key), value}}
 
   def transform([name | attrs], :highlight) do
-    dbg([name | attrs])
-
     {:highlight,
      Enum.reduce(attrs, %{name: name}, fn [key, value], acc ->
        Map.put(acc, String.to_atom(key), value)
@@ -168,7 +173,6 @@ defmodule PanTheme.Parser.Vim do
         highlight = highlight(h)
         Map.update(acc, h.name, highlight, &Map.merge(&1, highlight))
       end)
-      |> dbg()
 
     resolved_links =
       parsed

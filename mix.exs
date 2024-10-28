@@ -24,6 +24,7 @@ defmodule PanTheme.MixProject do
     [
       {:jason, "~> 1.4"},
       {:nimble_parsec, "~> 1.4"},
+      {:nimble_options, "~> 1.1"},
 
       # Non-production deps
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},

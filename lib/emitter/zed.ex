@@ -393,4 +393,10 @@ defmodule PanTheme.Emitter.Zed do
       ]
     }
   end
+
+  def dump(emitted) do
+    with {:ok, encoded} <- Jason.encode(emitted) do
+      {:ok, Jason.Formatter.pretty_print(encoded)}
+    end
+  end
 end
