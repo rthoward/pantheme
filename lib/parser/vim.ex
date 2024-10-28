@@ -1,7 +1,7 @@
-defmodule PanTheme.Parser.Vim do
+defmodule Pantheme.Parser.Vim do
   import NimbleParsec
 
-  alias PanTheme.AST
+  alias Pantheme.AST
 
   #
   # Load

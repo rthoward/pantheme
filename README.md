@@ -1,4 +1,4 @@
-# PanTheme
+# Pantheme
 
 **TODO: Add description**
 

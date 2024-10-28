@@ -1,5 +1,5 @@
-defmodule PanTheme.Emitter.Zed do
-  alias PanTheme.AST
+defmodule Pantheme.Emitter.Zed do
+  alias Pantheme.AST
 
   @spec emit(AST.t(), keyword()) :: map()
   def emit(ast, opts) do

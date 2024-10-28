@@ -1,4 +1,4 @@
-defmodule PanTheme.MixProject do
+defmodule Pantheme.MixProject do
   use Mix.Project
 
   def project do

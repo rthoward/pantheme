@@ -1,7 +1,7 @@
-defmodule PanTheme.Parser.VimTest do
+defmodule Pantheme.Parser.VimTest do
   use ExUnit.Case
 
-  alias PanTheme.Parser
+  alias Pantheme.Parser
 
   describe "parse/1" do
     test "parses a vim color theme" do

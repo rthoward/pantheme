@@ -1,2 +1,2 @@
-defmodule PanTheme.Parser do
+defmodule Pantheme.Parser do
 end

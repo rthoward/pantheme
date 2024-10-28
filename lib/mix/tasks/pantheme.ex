@@ -1,8 +1,8 @@
 defmodule Mix.Tasks.Pantheme do
   use Mix.Task
 
-  alias PanTheme.Parser
-  alias PanTheme.Emitter
+  alias Pantheme.Parser
+  alias Pantheme.Emitter
 
   @switches [
     from: :string,

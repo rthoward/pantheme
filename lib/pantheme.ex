@@ -1,6 +1,6 @@
-# defmodule PanTheme do
+# defmodule Pantheme do
 #   @moduledoc """
-#   Documentation for `PanTheme`.
+#   Documentation for `Pantheme`.
 #   """
 
 #   @doc """
@@ -8,7 +8,7 @@
 
 #   ## Examples
 
-#       iex> PanTheme.hello()
+#       iex> Pantheme.hello()
 #       :world
 
 #   """
