@@ -1,38 +1,64 @@
 defmodule PanTheme.Parser.Vim do
   import NimbleParsec
 
-  alias PanTheme.AST
+  #
+  # Load
+  #
 
-  require Logger
+  def load(opts) do
+    plugin = Keyword.fetch!(opts, :plugin)
+    colorscheme = Keyword.fetch!(opts, :colorscheme)
+    appearance = Keyword.fetch!(opts, :appearance)
 
-  eol =
-    choice([
-      string("\r\n"),
-      string("\n")
-    ])
+    System.cmd(
+      "nvim",
+      ["--headless", "--clean", "-u", init_path()],
+      env: [
+        {"PLUGIN", plugin},
+        {"COLORSCHEME", colorscheme},
+        {"APPEARANCE", appearance}
+      ],
+      stderr_to_stdout: true
+    )
+    |> case do
+      {output, 0} -> {:ok, output}
+      {output, _} -> {:error, output}
+    end
+  end
 
-  whitespace =
-    ascii_char(~c" ")
+  defp init_path,
+    do: Path.join(__DIR__, "../../priv/nvim/init.lua")
 
-  ignore_line =
-    ignore(utf8_string([not: ?\n], min: 0))
+  #
+  # Parse
+  #
 
-  word =
-    ignore(repeat(whitespace))
-    |> ascii_string([?a..?z, ?A..?Z], min: 1)
+  whitespace = repeat(ascii_char([?\s, ?\t]))
+  group = ascii_string([?a..?z, ?A..?Z, ?@, ?.], min: 1)
+  rest_of_line = ascii_string([not: ?\n], min: 0)
+  newline = string("\n")
 
-  hex_code =
-    ascii_string([?A..?F, ?0..?9, ?#], min: 1)
+  ignored_line =
+    ignore(rest_of_line)
+    |> ignore(newline)
 
-  term_color =
-    ignore(string("let g:terminal_color_"))
-    |> integer(min: 1)
-    |> ignore(string(" = '"))
-    |> concat(hex_code)
-    |> ignore(string("'"))
-    |> reduce({__MODULE__, :transform, [:term_color]})
+  link =
+    ignore(whitespace)
+    |> concat(group)
+    |> ignore(whitespace)
+    |> ignore(string("xxx "))
+    |> ignore(string("links to "))
+    |> concat(group)
+    |> reduce({__MODULE__, :transform, [:link]})
 
-  font_style =
+  hex_color =
+    string("#")
+    |> ascii_string([?a..?f, ?A..?F, ?0..?9], min: 6)
+    |> reduce({Enum, :join, [""]})
+
+  color = hex_color
+
+  styles =
     choice([
       string("bold"),
       string("italic"),
@@ -40,14 +66,11 @@ defmodule PanTheme.Parser.Vim do
       string("undercurl"),
       ignore(string(","))
     ])
-
-  font_styles =
-    repeat(font_style)
+    |> repeat()
     |> wrap()
 
-  highlight_color =
-    ignore(repeat(whitespace))
-    |> choice([
+  attr =
+    choice([
       string("guifg"),
       string("guibg"),
       string("guisp"),
@@ -56,54 +79,79 @@ defmodule PanTheme.Parser.Vim do
     ])
     |> ignore(string("="))
     |> choice([
-      string("NONE"),
-      hex_code,
-      font_styles
+      color,
+      styles
     ])
-    |> wrap()
-
-  highlight_clear =
-    ignore(string("highlight clear"))
+    |> ignore(optional(string(" ")))
 
   highlight =
-    ignore(string("highlight"))
-    |> concat(word)
-    |> repeat(highlight_color)
+    ignore(whitespace)
+    |> concat(group)
+    |> ignore(whitespace)
+    |> ignore(string("xxx "))
+    |> repeat(attr |> wrap())
+    |> ignore(optional(newline))
     |> reduce({__MODULE__, :transform, [:highlight]})
 
-  link =
-    ignore(string("highlight! link"))
+  clear =
+    ignore(whitespace)
+    |> concat(group)
     |> ignore(whitespace)
-    |> concat(word)
-    |> ignore(whitespace)
-    |> concat(word)
-    |> reduce({__MODULE__, :transform, [:link]})
+    |> ignore(string("xxx "))
+    |> ignore(string("cleared"))
+    |> ignore(optional(newline))
+    |> reduce({__MODULE__, :transform, [:clear]})
+
+  term_color =
+    ignore(whitespace)
+    |> ignore(string("terminal_color_"))
+    |> integer(min: 1)
+    |> ignore(string("="))
+    |> concat(hex_color)
+    |> reduce({__MODULE__, :transform, [:term_color]})
 
   line =
-    ignore(repeat(whitespace))
-    |> choice([
-      term_color,
-      highlight_clear,
-      highlight,
+    choice([
+      clear,
       link,
-      ignore_line
+      highlight,
+      term_color,
+      ignored_line
     ])
-    |> ignore(eol)
 
-  defparsec(:parse, repeat(line))
+  defparsec(:parse_lines, repeat(line))
 
   def transform([index, color], :term_color),
     do: {:term_color, %{index: index, color: color}}
 
-  def transform([to, from], :link),
-    do: {:link, %{to: to, from: from}}
+  def transform([from, to], :link),
+    do: {:link, %{from: from, to: to}}
 
-  def transform([name | colors], :highlight) do
+  def transform([group], :clear),
+    do: {:clear, %{name: group}}
+
+  def transform([key, value], :attr),
+    do: {:attr, {String.to_atom(key), value}}
+
+  def transform([name | attrs], :highlight) do
+    dbg([name | attrs])
+
     {:highlight,
-     Enum.reduce(colors, %{name: name}, fn [type, color], acc ->
-       Map.put(acc, String.to_atom(type), color)
+     Enum.reduce(attrs, %{name: name}, fn [key, value], acc ->
+       Map.put(acc, String.to_atom(key), value)
      end)}
   end
+
+  def parse(string) do
+    case parse_lines(string) do
+      {:ok, parsed, _, _, _, _} -> {:ok, parsed}
+      error -> error
+    end
+  end
+
+  #
+  # Resolve
+  #
 
   def normalize(parsed) do
     term_colors =
@@ -120,23 +168,13 @@ defmodule PanTheme.Parser.Vim do
         highlight = highlight(h)
         Map.update(acc, h.name, highlight, &Map.merge(&1, highlight))
       end)
+      |> dbg()
 
     resolved_links =
       parsed
       |> Keyword.get_values(:link)
       |> Map.new(fn %{from: from, to: to} ->
-        resolved =
-          if match = highlights[from] do
-            match
-          else
-            Logger.debug(
-              "Couldn't resolve `highlight! link #{to} #{from}.` " <>
-                "#{from} not found. Defaulting to Normal."
-            )
-
-            highlights["Normal"]
-          end
-
+        resolved = highlights[to] || highlights["Normal"]
         {to, resolved}
       end)
 
@@ -419,9 +457,9 @@ defmodule PanTheme.Parser.Vim do
           weight: hi(hs, ["Number", "Constant"], :style) |> weight()
         },
         operator: %AST.Text{
-          fg: hi(hs, "Operator", :fg),
-          style: hi(hs, "Operator", :style) |> style(),
-          weight: hi(hs, "Operator", :style) |> weight()
+          fg: hi(hs, ["@operator", "Operator"], :fg),
+          style: hi(hs, ["@operator", "Operator"], :style) |> style(),
+          weight: hi(hs, ["@operator", "Operator"], :style) |> weight()
         },
         predictive: %AST.Text{
           fg: hi(hs, ["DiagnosticHint", "Comment"], :fg),
