@@ -150,7 +150,7 @@ defmodule Pantheme.Parser.Vim do
   def parse(string) do
     case parse_lines(string) do
       {:ok, parsed, _, _, _, _} -> {:ok, parsed}
-      error -> error
+      {:error, reason, rest, _, _, _} -> {:error, {reason, rest}}
     end
   end
 
