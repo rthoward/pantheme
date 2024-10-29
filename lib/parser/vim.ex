@@ -366,34 +366,34 @@ defmodule Pantheme.Parser.Vim do
       },
       syntax: %AST.Syntax{
         attribute: %AST.Text{
-          fg: hi(hs, ["Identifier", "Special", "Type"], :fg),
-          style: hi(hs, ["Identifier", "Special", "Type"], :style) |> style(),
-          weight: hi(hs, ["Identifier", "Special", "Type"], :style) |> weight()
+          fg: hi(hs, ["@variable", "Identifier"], :fg),
+          style: hi(hs, ["@variable", "Identifier"], :style) |> style(),
+          weight: hi(hs, ["@variable", "Identifier"], :style) |> weight()
         },
         boolean: %AST.Text{
-          fg: hi(hs, ["Normal"], :fg),
-          style: hi(hs, ["Normal"], :style) |> style(),
-          weight: hi(hs, ["Normal"], :style) |> weight()
+          fg: hi(hs, ["@boolean", "Boolean"], :fg),
+          style: hi(hs, ["@boolean", "Boolean"], :style) |> style(),
+          weight: hi(hs, ["@boolean", "Boolean"], :style) |> weight()
         },
         comment: %AST.Text{
-          fg: hi(hs, "Comment", :fg),
-          style: hi(hs, "Comment", :style) |> style(),
-          weight: hi(hs, "Comment", :style) |> weight()
+          fg: hi(hs, ["@comment", "Comment"], :fg),
+          style: hi(hs, ["@comment", "Comment"], :style) |> style(),
+          weight: hi(hs, ["@comment", "Comment"], :style) |> weight()
         },
         constant: %AST.Text{
-          fg: hi(hs, "Constant", :fg),
-          style: hi(hs, "Constant", :style) |> style(),
-          weight: hi(hs, "Constant", :style) |> weight()
+          fg: hi(hs, ["@constant", "Constant"], :fg),
+          style: hi(hs, ["@constant", "Constant"], :style) |> style(),
+          weight: hi(hs, ["@constant", "Constant"], :style) |> weight()
         },
         constructor: %AST.Text{
-          fg: hi(hs, ["Normal"], :fg),
-          style: hi(hs, ["Normal"], :style) |> style(),
-          weight: hi(hs, ["Normal"], :style) |> weight()
+          fg: hi(hs, ["@constructor", "Constructor"], :fg),
+          style: hi(hs, ["@constructor", "Constructor"], :style) |> style(),
+          weight: hi(hs, ["@constructor", "Constructor"], :style) |> weight()
         },
         docstring: %AST.Text{
-          fg: hi(hs, ["Normal"], :fg),
-          style: hi(hs, ["Normal"], :style) |> style(),
-          weight: hi(hs, ["Normal"], :style) |> weight()
+          fg: hi(hs, ["@comment.documentation", "Comment"], :fg),
+          style: hi(hs, ["@comment.documentation", "Comment"], :style) |> style(),
+          weight: hi(hs, ["@comment.documentation", "Comment"], :style) |> weight()
         },
         embedded: %AST.Text{
           fg: hi(hs, ["Normal"], :fg),
@@ -401,64 +401,64 @@ defmodule Pantheme.Parser.Vim do
           weight: hi(hs, ["Normal"], :style) |> weight()
         },
         emphasis: %AST.Text{
-          fg: hi(hs, ["Normal"], :fg),
-          style: hi(hs, ["Normal"], :style) |> style(),
-          weight: hi(hs, ["Normal"], :style) |> weight()
+          fg: hi(hs, "Special", :fg),
+          style: hi(hs, "Special", :style) |> style(),
+          weight: hi(hs, "Special", :style) |> weight()
         },
         emphasis_strong: %AST.Text{
-          fg: hi(hs, ["Normal"], :fg),
-          style: hi(hs, ["Normal"], :style) |> style(),
-          weight: hi(hs, ["Normal"], :style) |> weight()
+          fg: hi(hs, "Special", :fg),
+          style: hi(hs, "Special", :style) |> style(),
+          weight: hi(hs, "Special", :style) |> weight()
         },
         enum: %AST.Text{
-          fg: hi(hs, ["Type", "Constant"], :fg),
-          style: hi(hs, ["Type", "Constant"], :style) |> style(),
-          weight: hi(hs, ["Type", "Constant"], :style) |> weight()
+          fg: hi(hs, ["@lsp.type.enum", "Type", "Constant"], :fg),
+          style: hi(hs, ["@lsp.type.enum", "Type", "Constant"], :style) |> style(),
+          weight: hi(hs, ["@lsp.type.enum", "Type", "Constant"], :style) |> weight()
         },
         function: %AST.Text{
-          fg: hi(hs, "Function", :fg),
-          style: hi(hs, "Function", :style) |> style(),
-          weight: hi(hs, "Function", :style) |> weight()
+          fg: hi(hs, ["@function", "Function"], :fg),
+          style: hi(hs, ["@function", "Function"], :style) |> style(),
+          weight: hi(hs, ["@function", "Function"], :style) |> weight()
         },
         function_def: %AST.Text{
-          fg: hi(hs, "Function", :fg),
-          style: hi(hs, "Function", :style) |> style(),
-          weight: hi(hs, "Function", :style) |> weight()
+          fg: hi(hs, ["@function", "Function"], :fg),
+          style: hi(hs, ["@function", "Function"], :style) |> style(),
+          weight: hi(hs, ["@function", "Function"], :style) |> weight()
         },
         hint: %AST.Text{
-          fg: hi(hs, ["DiagnosticHint", "LspInlayHint", "Comment"], :fg),
-          style: hi(hs, ["DiagnosticHint", "LspInlayHint", "Comment"], :style) |> style(),
-          weight: hi(hs, ["DiagnosticHint", "LspInlayHint", "Comment"], :style) |> weight()
+          fg: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :fg),
+          style: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :style) |> style(),
+          weight: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :style) |> weight()
         },
         keyword: %AST.Text{
-          fg: hi(hs, ["Statement", "Type"], :fg),
-          style: hi(hs, ["Statement", "Type"], :style) |> style(),
-          weight: hi(hs, ["Statement", "Type"], :style) |> weight()
+          fg: hi(hs, ["@keyword", "Keyword"], :fg),
+          style: hi(hs, ["@keyword", "Keyword"], :style) |> style(),
+          weight: hi(hs, ["@keyword", "Keyword"], :style) |> weight()
         },
         label: %AST.Text{
-          fg: hi(hs, ["Label", "Identifier"], :fg),
-          style: hi(hs, ["Label", "Identifier"], :style) |> style(),
-          weight: hi(hs, ["Label", "Identifier"], :style) |> weight()
+          fg: hi(hs, ["@label", "Label", "Identifier"], :fg),
+          style: hi(hs, ["@label", "Label", "Identifier"], :style) |> style(),
+          weight: hi(hs, ["@label", "Label", "Identifier"], :style) |> weight()
         },
         link_text: %AST.Text{
-          fg: hi(hs, ["Normal"], :fg),
-          style: hi(hs, ["Normal"], :style) |> style(),
-          weight: hi(hs, ["Normal"], :style) |> weight()
+          fg: hi(hs, ["@markup.link", "Tag"], :fg),
+          style: hi(hs, ["@markup.link", "Tag"], :style) |> style(),
+          weight: hi(hs, ["@markup.link", "Tag"], :style) |> weight()
         },
         link_uri: %AST.Text{
-          fg: hi(hs, ["Normal"], :fg),
-          style: hi(hs, ["Normal"], :style) |> style(),
-          weight: hi(hs, ["Normal"], :style) |> weight()
+          fg: hi(hs, ["@markup.link.url", "Tag"], :fg),
+          style: hi(hs, ["@markup.link.url", "Tag"], :style) |> style(),
+          weight: hi(hs, ["@markup.link.url", "Tag"], :style) |> weight()
         },
         method: %AST.Text{
-          fg: hi(hs, "Function", :fg),
-          style: hi(hs, "Function", :style) |> style(),
-          weight: hi(hs, "Function", :style) |> weight()
+          fg: hi(hs, ["@function.method", "Function"], :fg),
+          style: hi(hs, ["@function.method", "Function"], :style) |> style(),
+          weight: hi(hs, ["@function.method", "Function"], :style) |> weight()
         },
         number: %AST.Text{
-          fg: hi(hs, ["Number", "Constant"], :fg),
-          style: hi(hs, ["Number", "Constant"], :style) |> style(),
-          weight: hi(hs, ["Number", "Constant"], :style) |> weight()
+          fg: hi(hs, ["@number", "Number"], :fg),
+          style: hi(hs, ["@number", "Number"], :style) |> style(),
+          weight: hi(hs, ["@number", "Number"], :style) |> weight()
         },
         operator: %AST.Text{
           fg: hi(hs, ["@operator", "Operator"], :fg),
@@ -466,14 +466,14 @@ defmodule Pantheme.Parser.Vim do
           weight: hi(hs, ["@operator", "Operator"], :style) |> weight()
         },
         predictive: %AST.Text{
-          fg: hi(hs, ["DiagnosticHint", "Comment"], :fg),
-          style: hi(hs, ["DiagnosticHint", "Comment"], :style) |> style(),
-          weight: hi(hs, ["DiagnosticHint", "Comment"], :style) |> weight()
+          fg: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :fg),
+          style: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :style) |> style(),
+          weight: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :style) |> weight()
         },
         preproc: %AST.Text{
-          fg: hi(hs, ["PreProc", "Special"], :fg),
-          style: hi(hs, ["PreProc", "Special"], :style) |> style(),
-          weight: hi(hs, ["PreProc", "Special"], :style) |> weight()
+          fg: hi(hs, ["@preproc", "PreProc"], :fg),
+          style: hi(hs, ["@preproc", "PreProc"], :style) |> style(),
+          weight: hi(hs, ["@preproc", "PreProc"], :style) |> weight()
         },
         primary: %AST.Text{
           fg: hi(hs, "Identifier", :fg),
@@ -481,69 +481,69 @@ defmodule Pantheme.Parser.Vim do
           weight: hi(hs, "Identifier", :style) |> weight()
         },
         property: %AST.Text{
-          fg: hi(hs, "Identifier", :fg),
-          style: hi(hs, "Identifier", :style) |> style(),
-          weight: hi(hs, "Identifier", :style) |> weight()
+          fg: hi(hs, ["Property", "Identifier"], :fg),
+          style: hi(hs, ["Property", "Identifier"], :style) |> style(),
+          weight: hi(hs, ["Property", "Identifier"], :style) |> weight()
         },
         punct: %AST.Text{
-          fg: hi(hs, "Delimiter", :fg),
-          style: hi(hs, "Delimiter", :style) |> style(),
-          weight: hi(hs, "Delimiter", :style) |> weight()
+          fg: hi(hs, ["@punctuation", "Delimiter"], :fg),
+          style: hi(hs, ["@punctuation", "Delimiter"], :style) |> style(),
+          weight: hi(hs, ["@punctuation", "Delimiter"], :style) |> weight()
         },
         punct_bracket: %AST.Text{
-          fg: hi(hs, "Delimiter", :fg),
-          style: hi(hs, "Delimiter", :style) |> style(),
-          weight: hi(hs, "Delimiter", :style) |> weight()
+          fg: hi(hs, ["@punctuation.bracket", "Delimiter"], :fg),
+          style: hi(hs, ["@punctuation.bracket", "Delimiter"], :style) |> style(),
+          weight: hi(hs, ["@punctuation.bracket", "Delimiter"], :style) |> weight()
         },
         punct_delimiter: %AST.Text{
-          fg: hi(hs, "Delimiter", :fg),
-          style: hi(hs, "Delimiter", :style) |> style(),
-          weight: hi(hs, "Delimiter", :style) |> weight()
+          fg: hi(hs, ["@punctuation.delimiter", "Delimiter"], :fg),
+          style: hi(hs, ["@punctuation.delimiter", "Delimiter"], :style) |> style(),
+          weight: hi(hs, ["@punctuation.delimiter", "Delimiter"], :style) |> weight()
         },
         punct_list_marker: %AST.Text{
-          fg: hi(hs, "Delimiter", :fg),
-          style: hi(hs, "Delimiter", :style) |> style(),
-          weight: hi(hs, "Delimiter", :style) |> weight()
+          fg: hi(hs, ["@punctuation.bracket", "Delimiter"], :fg),
+          style: hi(hs, ["@punctuation.bracket", "Delimiter"], :style) |> style(),
+          weight: hi(hs, ["@punctuation.bracket", "Delimiter"], :style) |> weight()
         },
         punct_special: %AST.Text{
-          fg: hi(hs, "Delimiter", :fg),
-          style: hi(hs, "Delimiter", :style) |> style(),
-          weight: hi(hs, "Delimiter", :style) |> weight()
+          fg: hi(hs, ["@punctuation.special", "Special"], :fg),
+          style: hi(hs, ["@punctuation.special", "Special"], :style) |> style(),
+          weight: hi(hs, ["@punctuation.special", "Special"], :style) |> weight()
         },
         string: %AST.Text{
-          fg: hi(hs, "String", :fg),
-          style: hi(hs, "String", :style) |> style(),
-          weight: hi(hs, "String", :style) |> weight()
+          fg: hi(hs, ["@string", "String"], :fg),
+          style: hi(hs, ["@string", "String"], :style) |> style(),
+          weight: hi(hs, ["@string", "String"], :style) |> weight()
         },
         string_escape: %AST.Text{
-          fg: hi(hs, "String", :fg),
-          style: hi(hs, "String", :style) |> style(),
-          weight: hi(hs, "String", :style) |> weight()
+          fg: hi(hs, ["@string.escape", "String"], :fg),
+          style: hi(hs, ["@string.escape", "String"], :style) |> style(),
+          weight: hi(hs, ["@string.escape", "String"], :style) |> weight()
         },
         string_regex: %AST.Text{
-          fg: hi(hs, "String", :fg),
-          style: hi(hs, "String", :style) |> style(),
-          weight: hi(hs, "String", :style) |> weight()
+          fg: hi(hs, ["@string.regexp", "String"], :fg),
+          style: hi(hs, ["@string.regexp", "String"], :style) |> style(),
+          weight: hi(hs, ["@string.regexp", "String"], :style) |> weight()
         },
         string_special: %AST.Text{
-          fg: hi(hs, "String", :fg),
-          style: hi(hs, "String", :style) |> style(),
-          weight: hi(hs, "String", :style) |> weight()
+          fg: hi(hs, ["@string.special", "Special"], :fg),
+          style: hi(hs, ["@string.special", "Special"], :style) |> style(),
+          weight: hi(hs, ["@string.special", "Special"], :style) |> weight()
         },
         string_symbol: %AST.Text{
-          fg: hi(hs, "Constant", :fg),
-          style: hi(hs, "Constant", :style) |> style(),
-          weight: hi(hs, "Constant", :style) |> weight()
+          fg: hi(hs, ["@string.special.symbol", "String"], :fg),
+          style: hi(hs, ["@string.special.symbol", "String"], :style) |> style(),
+          weight: hi(hs, ["@string.special.symbol", "String"], :style) |> weight()
         },
         tag: %AST.Text{
-          fg: hi(hs, "Constant", :fg),
-          style: hi(hs, "Constant", :style) |> style(),
-          weight: hi(hs, "Constant", :style) |> weight()
+          fg: hi(hs, "Tag", :fg),
+          style: hi(hs, "Tag", :style) |> style(),
+          weight: hi(hs, "Tag", :style) |> weight()
         },
         text_literal: %AST.Text{
-          fg: hi(hs, "String", :fg),
-          style: hi(hs, "String", :style) |> style(),
-          weight: hi(hs, "String", :style) |> weight()
+          fg: hi(hs, ["@text.literal", "String"], :fg),
+          style: hi(hs, ["@text.literal", "String"], :style) |> style(),
+          weight: hi(hs, ["@text.literal", "String"], :style) |> weight()
         },
         title: %AST.Text{
           fg: hi(hs, "Title", :fg),
@@ -551,24 +551,24 @@ defmodule Pantheme.Parser.Vim do
           weight: hi(hs, "Title", :style) |> weight()
         },
         type: %AST.Text{
-          fg: hi(hs, "Type", :fg),
-          style: hi(hs, "Type", :style) |> style(),
-          weight: hi(hs, "Type", :style) |> weight()
+          fg: hi(hs, ["@type", "Type"], :fg),
+          style: hi(hs, ["@type", "Type"], :style) |> style(),
+          weight: hi(hs, ["@type", "Type"], :style) |> weight()
         },
         variable: %AST.Text{
-          fg: hi(hs, "Identifier", :fg),
-          style: hi(hs, "Identifier", :style) |> style(),
-          weight: hi(hs, "Identifier", :style) |> weight()
+          fg: hi(hs, ["@variable", "Identifier"], :fg),
+          style: hi(hs, ["@variable", "Identifier"], :style) |> style(),
+          weight: hi(hs, ["@variable", "Identifier"], :style) |> weight()
         },
         variable_special: %AST.Text{
-          fg: hi(hs, "Identifier", :fg),
-          style: hi(hs, "Identifier", :style) |> style(),
-          weight: hi(hs, "Identifier", :style) |> weight()
+          fg: hi(hs, ["@variable.builtin", "Special"], :fg),
+          style: hi(hs, ["@variable.builtin", "Special"], :style) |> style(),
+          weight: hi(hs, ["@variable.builtin", "Special"], :style) |> weight()
         },
         variant: %AST.Text{
-          fg: hi(hs, ["Type", "Identifier"], :fg),
-          style: hi(hs, ["Type", "Identifier"], :style) |> style(),
-          weight: hi(hs, ["Type", "Identifier"], :style) |> weight()
+          fg: hi(hs, ["@variable", "Identifier"], :fg),
+          style: hi(hs, ["@variable", "Identifier"], :style) |> style(),
+          weight: hi(hs, ["@variable", "Identifier"], :style) |> weight()
         }
       },
       term: %AST.TermColors{
