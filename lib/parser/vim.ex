@@ -1,7 +1,7 @@
 defmodule Pantheme.Parser.Vim do
   import NimbleParsec
 
-  alias Pantheme.AST
+  alias Pantheme.IR
 
   #
   # Load
@@ -215,10 +215,10 @@ defmodule Pantheme.Parser.Vim do
   defp nil_key?({nil, _}), do: true
   defp nil_key?(_), do: false
 
-  @spec to_ast(map()) :: AST.t()
-  def to_ast(%{term_colors: tcs, highlights: hs}) do
-    %AST{
-      editor: %AST.Editor{
+  @spec to_ir(map()) :: IR.t()
+  def to_ir(%{term_colors: tcs, highlights: hs}) do
+    %IR{
+      editor: %IR.Editor{
         bg: hi(hs, "Normal", :bg),
         fg: hi(hs, "Normal", :fg),
         highlighted_line_bg: hi(hs, ["CursorLine"], :bg),
@@ -229,7 +229,7 @@ defmodule Pantheme.Parser.Vim do
         selection_bg: hi(hs, "Visual", :bg),
         subheader_bg: hi(hs, ["Pmenu"], :bg)
       },
-      ui: %AST.UI{
+      ui: %IR.UI{
         bg: hi(hs, "Normal", :bg),
         fg: hi(hs, "Normal", :fg),
         status_bar_bg: hi(hs, "StatusLine", :bg),
@@ -245,7 +245,7 @@ defmodule Pantheme.Parser.Vim do
         scrollbar_thumb_border: hi(hs, ["Scrollbar", "StatusLineNC"], :bg),
         scrollbar_track_bg: hi(hs, "Scrollbar", :bg),
         scrollbar_track_border: hi(hs, ["Scrollbar", "StatusLineNC"], :bg),
-        border: %AST.Element{
+        border: %IR.Element{
           color: hi(hs, ["WinSeparator", "FloatBorder"], :fg),
           active: hi(hs, ["FloatBorder", "StatusLine"], :fg),
           disabled: hi(hs, ["StatusLineNC"], :fg),
@@ -257,23 +257,23 @@ defmodule Pantheme.Parser.Vim do
         },
         panel_bg: hi(hs, ["StatusLine"], :bg),
         panel_focused_bg: hi(hs, ["Pmenu"], :bg),
-        conflict: %AST.Container{
+        conflict: %IR.Container{
           fg: hi(hs, "DiffText", :fg),
           bg: hi(hs, "DiffChange", :bg),
           border: hi(hs, "FloatBorder", :bg)
         },
-        created: %AST.Container{
+        created: %IR.Container{
           fg: hi(hs, "GitSignsAdd", :fg),
           bg: hi(hs, "GitSignsAdd", :fg),
           border: hi(hs, "GitSignsAdd", :fg)
         },
-        deleted: %AST.Container{
+        deleted: %IR.Container{
           fg: hi(hs, "GitSignsDelete", :fg),
           bg: hi(hs, "GitSignsDelete", :fg),
           border: hi(hs, "GitSignsDelete", :fg)
         },
         drop_target_bg: hi(hs, "Normal", :bg),
-        element: %AST.Element{
+        element: %IR.Element{
           color: hi(hs, "Normal", :bg),
           active: hi(hs, ["Title", "Special"], :fg),
           disabled: hi(hs, ["NonText", "StatusLineNC"], :fg),
@@ -283,12 +283,12 @@ defmodule Pantheme.Parser.Vim do
           transparent: hi(hs, "Conceal", :fg),
           variant: hi(hs, "Special", :fg)
         },
-        error: %AST.Container{
+        error: %IR.Container{
           fg: hi(hs, ["DiagnosticError", "Error"], :fg),
           bg: hi(hs, ["DiagnosticError", "Error"], :bg),
           border: hi(hs, ["DiagnosticError", "Error"], :bg)
         },
-        ghost_element: %AST.Element{
+        ghost_element: %IR.Element{
           color: hi(hs, "Normal", :bg),
           active: hi(hs, ["PmenuSel", "CursorLine"], :bg),
           disabled: hi(hs, ["NonText", "StatusLineNC"], :fg),
@@ -298,322 +298,322 @@ defmodule Pantheme.Parser.Vim do
           transparent: hi(hs, "Conceal", :fg),
           variant: hi(hs, "Special", :fg)
         },
-        hidden: %AST.Container{
+        hidden: %IR.Container{
           fg: hi(hs, "Normal", :fg),
           bg: hi(hs, "Normal", :bg),
           border: hi(hs, "Normal", :bg)
         },
-        hint: %AST.Container{
+        hint: %IR.Container{
           fg: hi(hs, ["LspInlayHint", "Comment"], :fg),
           bg: hi(hs, ["LspInlayHint", "Comment"], :bg),
           border: hi(hs, ["LspInlayHint", "Comment"], :bg)
         },
-        icon: %AST.Text{
+        icon: %IR.Text{
           fg: hi(hs, "Normal", :fg),
           fg_accent: hi(hs, ["Title", "Special"], :fg),
           fg_disabled: hi(hs, ["NonText", "StatusLineNC"], :fg),
           fg_muted: hi(hs, ["Comment", "LineNr", "LspInlayHint"], :fg),
           fg_placeholder: hi(hs, ["Conceal", "NonText", "Comment"], :fg)
         },
-        ignored: %AST.Container{
+        ignored: %IR.Container{
           fg: hi(hs, "Normal", :fg),
           bg: hi(hs, "Normal", :bg),
           border: hi(hs, "Normal", :bg)
         },
-        info: %AST.Container{
+        info: %IR.Container{
           fg: hi(hs, "Normal", :fg),
           bg: hi(hs, "Normal", :bg),
           border: hi(hs, "Normal", :bg)
         },
         link_text_hover: hi(hs, "Normal", :fg),
-        modified: %AST.Container{
+        modified: %IR.Container{
           fg: hi(hs, "GitSignsChange", :fg),
           bg: hi(hs, "GitSignsChange", :fg),
           border: hi(hs, "GitSignsChange", :fg)
         },
-        predictive: %AST.Container{
+        predictive: %IR.Container{
           fg: hi(hs, "Normal", :fg),
           bg: hi(hs, "Normal", :bg),
           border: hi(hs, "Normal", :bg)
         },
-        renamed: %AST.Container{
+        renamed: %IR.Container{
           fg: hi(hs, "DiffText", :fg),
           bg: hi(hs, "DiffChange", :bg),
           border: hi(hs, "FloatBorder", :bg)
         },
-        success: %AST.Container{
+        success: %IR.Container{
           fg: hi(hs, "DiagnosticOk", :fg),
           bg: hi(hs, "DiagnosticOk", :bg),
           border: hi(hs, "DiagnosticOk", :bg)
         },
-        text: %AST.Text{
+        text: %IR.Text{
           fg: hi(hs, "Normal", :fg),
           fg_accent: hi(hs, "Normal", :fg),
           fg_disabled: hi(hs, "Normal", :fg),
           fg_muted: hi(hs, "Normal", :fg),
           fg_placeholder: hi(hs, "Normal", :fg)
         },
-        unreachable: %AST.Container{
+        unreachable: %IR.Container{
           fg: hi(hs, "Normal", :fg),
           bg: hi(hs, "Normal", :bg),
           border: hi(hs, "Normal", :bg)
         },
-        warning: %AST.Container{
+        warning: %IR.Container{
           fg: hi(hs, "DiagnosticWarn", :fg),
           bg: hi(hs, "DiagnosticWarn", :bg),
           border: hi(hs, "DiagnosticWarn", :bg)
         }
       },
-      syntax: %AST.Syntax{
-        attribute: %AST.Text{
+      syntax: %IR.Syntax{
+        attribute: %IR.Text{
           fg: hi(hs, ["@variable", "Identifier"], :fg),
           style: hi(hs, ["@variable", "Identifier"], :style) |> style(),
           weight: hi(hs, ["@variable", "Identifier"], :style) |> weight()
         },
-        boolean: %AST.Text{
+        boolean: %IR.Text{
           fg: hi(hs, ["@boolean", "Boolean"], :fg),
           style: hi(hs, ["@boolean", "Boolean"], :style) |> style(),
           weight: hi(hs, ["@boolean", "Boolean"], :style) |> weight()
         },
-        comment: %AST.Text{
+        comment: %IR.Text{
           fg: hi(hs, ["@comment", "Comment"], :fg),
           style: hi(hs, ["@comment", "Comment"], :style) |> style(),
           weight: hi(hs, ["@comment", "Comment"], :style) |> weight()
         },
-        constant: %AST.Text{
+        constant: %IR.Text{
           fg: hi(hs, ["@constant", "Constant"], :fg),
           style: hi(hs, ["@constant", "Constant"], :style) |> style(),
           weight: hi(hs, ["@constant", "Constant"], :style) |> weight()
         },
-        constructor: %AST.Text{
+        constructor: %IR.Text{
           fg: hi(hs, ["@constructor", "Constructor"], :fg),
           style: hi(hs, ["@constructor", "Constructor"], :style) |> style(),
           weight: hi(hs, ["@constructor", "Constructor"], :style) |> weight()
         },
-        docstring: %AST.Text{
+        docstring: %IR.Text{
           fg: hi(hs, ["@comment.documentation", "Comment"], :fg),
           style: hi(hs, ["@comment.documentation", "Comment"], :style) |> style(),
           weight: hi(hs, ["@comment.documentation", "Comment"], :style) |> weight()
         },
-        embedded: %AST.Text{
+        embedded: %IR.Text{
           fg: hi(hs, ["Normal"], :fg),
           style: hi(hs, ["Normal"], :style) |> style(),
           weight: hi(hs, ["Normal"], :style) |> weight()
         },
-        emphasis: %AST.Text{
+        emphasis: %IR.Text{
           fg: hi(hs, "Special", :fg),
           style: hi(hs, "Special", :style) |> style(),
           weight: hi(hs, "Special", :style) |> weight()
         },
-        emphasis_strong: %AST.Text{
+        emphasis_strong: %IR.Text{
           fg: hi(hs, "Special", :fg),
           style: hi(hs, "Special", :style) |> style(),
           weight: hi(hs, "Special", :style) |> weight()
         },
-        enum: %AST.Text{
+        enum: %IR.Text{
           fg: hi(hs, ["@lsp.type.enum", "Type", "Constant"], :fg),
           style: hi(hs, ["@lsp.type.enum", "Type", "Constant"], :style) |> style(),
           weight: hi(hs, ["@lsp.type.enum", "Type", "Constant"], :style) |> weight()
         },
-        function: %AST.Text{
+        function: %IR.Text{
           fg: hi(hs, ["@function", "Function"], :fg),
           style: hi(hs, ["@function", "Function"], :style) |> style(),
           weight: hi(hs, ["@function", "Function"], :style) |> weight()
         },
-        function_def: %AST.Text{
+        function_def: %IR.Text{
           fg: hi(hs, ["@function", "Function"], :fg),
           style: hi(hs, ["@function", "Function"], :style) |> style(),
           weight: hi(hs, ["@function", "Function"], :style) |> weight()
         },
-        hint: %AST.Text{
+        hint: %IR.Text{
           fg: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :fg),
           style: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :style) |> style(),
           weight: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :style) |> weight()
         },
-        keyword: %AST.Text{
+        keyword: %IR.Text{
           fg: hi(hs, ["@keyword", "Keyword"], :fg),
           style: hi(hs, ["@keyword", "Keyword"], :style) |> style(),
           weight: hi(hs, ["@keyword", "Keyword"], :style) |> weight()
         },
-        label: %AST.Text{
+        label: %IR.Text{
           fg: hi(hs, ["@label", "Label", "Identifier"], :fg),
           style: hi(hs, ["@label", "Label", "Identifier"], :style) |> style(),
           weight: hi(hs, ["@label", "Label", "Identifier"], :style) |> weight()
         },
-        link_text: %AST.Text{
+        link_text: %IR.Text{
           fg: hi(hs, ["@markup.link", "Tag"], :fg),
           style: hi(hs, ["@markup.link", "Tag"], :style) |> style(),
           weight: hi(hs, ["@markup.link", "Tag"], :style) |> weight()
         },
-        link_uri: %AST.Text{
+        link_uri: %IR.Text{
           fg: hi(hs, ["@markup.link.url", "Tag"], :fg),
           style: hi(hs, ["@markup.link.url", "Tag"], :style) |> style(),
           weight: hi(hs, ["@markup.link.url", "Tag"], :style) |> weight()
         },
-        method: %AST.Text{
+        method: %IR.Text{
           fg: hi(hs, ["@function.method", "Function"], :fg),
           style: hi(hs, ["@function.method", "Function"], :style) |> style(),
           weight: hi(hs, ["@function.method", "Function"], :style) |> weight()
         },
-        number: %AST.Text{
+        number: %IR.Text{
           fg: hi(hs, ["@number", "Number"], :fg),
           style: hi(hs, ["@number", "Number"], :style) |> style(),
           weight: hi(hs, ["@number", "Number"], :style) |> weight()
         },
-        operator: %AST.Text{
+        operator: %IR.Text{
           fg: hi(hs, ["@operator", "Operator"], :fg),
           style: hi(hs, ["@operator", "Operator"], :style) |> style(),
           weight: hi(hs, ["@operator", "Operator"], :style) |> weight()
         },
-        predictive: %AST.Text{
+        predictive: %IR.Text{
           fg: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :fg),
           style: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :style) |> style(),
           weight: hi(hs, ["@comment.hint", "DiagnosticHint", "Comment"], :style) |> weight()
         },
-        preproc: %AST.Text{
+        preproc: %IR.Text{
           fg: hi(hs, ["@preproc", "PreProc"], :fg),
           style: hi(hs, ["@preproc", "PreProc"], :style) |> style(),
           weight: hi(hs, ["@preproc", "PreProc"], :style) |> weight()
         },
-        primary: %AST.Text{
+        primary: %IR.Text{
           fg: hi(hs, "Identifier", :fg),
           style: hi(hs, "Identifier", :style) |> style(),
           weight: hi(hs, "Identifier", :style) |> weight()
         },
-        property: %AST.Text{
+        property: %IR.Text{
           fg: hi(hs, ["Property", "Identifier"], :fg),
           style: hi(hs, ["Property", "Identifier"], :style) |> style(),
           weight: hi(hs, ["Property", "Identifier"], :style) |> weight()
         },
-        punct: %AST.Text{
+        punct: %IR.Text{
           fg: hi(hs, ["@punctuation", "Delimiter"], :fg),
           style: hi(hs, ["@punctuation", "Delimiter"], :style) |> style(),
           weight: hi(hs, ["@punctuation", "Delimiter"], :style) |> weight()
         },
-        punct_bracket: %AST.Text{
+        punct_bracket: %IR.Text{
           fg: hi(hs, ["@punctuation.bracket", "Delimiter"], :fg),
           style: hi(hs, ["@punctuation.bracket", "Delimiter"], :style) |> style(),
           weight: hi(hs, ["@punctuation.bracket", "Delimiter"], :style) |> weight()
         },
-        punct_delimiter: %AST.Text{
+        punct_delimiter: %IR.Text{
           fg: hi(hs, ["@punctuation.delimiter", "Delimiter"], :fg),
           style: hi(hs, ["@punctuation.delimiter", "Delimiter"], :style) |> style(),
           weight: hi(hs, ["@punctuation.delimiter", "Delimiter"], :style) |> weight()
         },
-        punct_list_marker: %AST.Text{
+        punct_list_marker: %IR.Text{
           fg: hi(hs, ["@punctuation.bracket", "Delimiter"], :fg),
           style: hi(hs, ["@punctuation.bracket", "Delimiter"], :style) |> style(),
           weight: hi(hs, ["@punctuation.bracket", "Delimiter"], :style) |> weight()
         },
-        punct_special: %AST.Text{
+        punct_special: %IR.Text{
           fg: hi(hs, ["@punctuation.special", "Special"], :fg),
           style: hi(hs, ["@punctuation.special", "Special"], :style) |> style(),
           weight: hi(hs, ["@punctuation.special", "Special"], :style) |> weight()
         },
-        string: %AST.Text{
+        string: %IR.Text{
           fg: hi(hs, ["@string", "String"], :fg),
           style: hi(hs, ["@string", "String"], :style) |> style(),
           weight: hi(hs, ["@string", "String"], :style) |> weight()
         },
-        string_escape: %AST.Text{
+        string_escape: %IR.Text{
           fg: hi(hs, ["@string.escape", "String"], :fg),
           style: hi(hs, ["@string.escape", "String"], :style) |> style(),
           weight: hi(hs, ["@string.escape", "String"], :style) |> weight()
         },
-        string_regex: %AST.Text{
+        string_regex: %IR.Text{
           fg: hi(hs, ["@string.regexp", "String"], :fg),
           style: hi(hs, ["@string.regexp", "String"], :style) |> style(),
           weight: hi(hs, ["@string.regexp", "String"], :style) |> weight()
         },
-        string_special: %AST.Text{
+        string_special: %IR.Text{
           fg: hi(hs, ["@string.special", "Special"], :fg),
           style: hi(hs, ["@string.special", "Special"], :style) |> style(),
           weight: hi(hs, ["@string.special", "Special"], :style) |> weight()
         },
-        string_symbol: %AST.Text{
+        string_symbol: %IR.Text{
           fg: hi(hs, ["@string.special.symbol", "String"], :fg),
           style: hi(hs, ["@string.special.symbol", "String"], :style) |> style(),
           weight: hi(hs, ["@string.special.symbol", "String"], :style) |> weight()
         },
-        tag: %AST.Text{
+        tag: %IR.Text{
           fg: hi(hs, "Tag", :fg),
           style: hi(hs, "Tag", :style) |> style(),
           weight: hi(hs, "Tag", :style) |> weight()
         },
-        text_literal: %AST.Text{
+        text_literal: %IR.Text{
           fg: hi(hs, ["@text.literal", "String"], :fg),
           style: hi(hs, ["@text.literal", "String"], :style) |> style(),
           weight: hi(hs, ["@text.literal", "String"], :style) |> weight()
         },
-        title: %AST.Text{
+        title: %IR.Text{
           fg: hi(hs, "Title", :fg),
           style: hi(hs, "Title", :style) |> style(),
           weight: hi(hs, "Title", :style) |> weight()
         },
-        type: %AST.Text{
+        type: %IR.Text{
           fg: hi(hs, ["@type", "Type"], :fg),
           style: hi(hs, ["@type", "Type"], :style) |> style(),
           weight: hi(hs, ["@type", "Type"], :style) |> weight()
         },
-        variable: %AST.Text{
+        variable: %IR.Text{
           fg: hi(hs, ["@variable", "Identifier"], :fg),
           style: hi(hs, ["@variable", "Identifier"], :style) |> style(),
           weight: hi(hs, ["@variable", "Identifier"], :style) |> weight()
         },
-        variable_special: %AST.Text{
+        variable_special: %IR.Text{
           fg: hi(hs, ["@variable.builtin", "Special"], :fg),
           style: hi(hs, ["@variable.builtin", "Special"], :style) |> style(),
           weight: hi(hs, ["@variable.builtin", "Special"], :style) |> weight()
         },
-        variant: %AST.Text{
+        variant: %IR.Text{
           fg: hi(hs, ["@variable", "Identifier"], :fg),
           style: hi(hs, ["@variable", "Identifier"], :style) |> style(),
           weight: hi(hs, ["@variable", "Identifier"], :style) |> weight()
         }
       },
-      term: %AST.TermColors{
+      term: %IR.TermColors{
         bg: term_color(tcs, :bg),
-        fg: %AST.TermColor{
+        fg: %IR.TermColor{
           normal: term_color(tcs, :fg),
           bright: term_color(tcs, :fg_bright),
           dim: term_color(tcs, :fg_dim)
         },
-        black: %AST.TermColor{
+        black: %IR.TermColor{
           normal: term_color(tcs, :black),
           bright: term_color(tcs, :black_bright),
           dim: term_color(tcs, :black_dim)
         },
-        red: %AST.TermColor{
+        red: %IR.TermColor{
           normal: term_color(tcs, :red),
           bright: term_color(tcs, :red_bright),
           dim: term_color(tcs, :red_dim)
         },
-        green: %AST.TermColor{
+        green: %IR.TermColor{
           normal: term_color(tcs, :green),
           bright: term_color(tcs, :green_bright),
           dim: term_color(tcs, :green_dim)
         },
-        yellow: %AST.TermColor{
+        yellow: %IR.TermColor{
           normal: term_color(tcs, :yellow),
           bright: term_color(tcs, :yellow_bright),
           dim: term_color(tcs, :yellow_dim)
         },
-        blue: %AST.TermColor{
+        blue: %IR.TermColor{
           normal: term_color(tcs, :blue),
           bright: term_color(tcs, :blue_bright),
           dim: term_color(tcs, :blue_dim)
         },
-        magenta: %AST.TermColor{
+        magenta: %IR.TermColor{
           normal: term_color(tcs, :magenta),
           bright: term_color(tcs, :magenta_bright),
           dim: term_color(tcs, :magenta_dim)
         },
-        cyan: %AST.TermColor{
+        cyan: %IR.TermColor{
           normal: term_color(tcs, :cyan),
           bright: term_color(tcs, :cyan_bright),
           dim: term_color(tcs, :cyan_dim)
         },
-        white: %AST.TermColor{
+        white: %IR.TermColor{
           normal: term_color(tcs, :white),
           bright: term_color(tcs, :white_bright),
           dim: term_color(tcs, :white_dim)

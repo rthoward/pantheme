@@ -1,8 +1,8 @@
 defmodule Pantheme.Emitter.Zed do
-  alias Pantheme.AST
+  alias Pantheme.IR
 
-  @spec emit(AST.t(), keyword()) :: map()
-  def emit(ast, opts) do
+  @spec emit(IR.t(), keyword()) :: map()
+  def emit(ir, opts) do
     %{
       "$schema" => "https://zed.dev/schema/themes/v0.1.0.json",
       "name" => opts[:name],
@@ -12,60 +12,60 @@ defmodule Pantheme.Emitter.Zed do
           "name" => opts[:name],
           "appearance" => opts[:appearance],
           "style" => %{
-            "border" => ast.ui.border.color,
-            "border.variant" => ast.ui.border.variant,
-            "border.focused" => ast.ui.border.focused,
-            "border.selected" => ast.ui.border.selected,
-            "border.transparent" => ast.ui.border.transparent,
-            "border.disabled" => ast.ui.border.disabled,
-            "elevated_surface.background" => ast.ui.bg,
-            "surface.background" => ast.ui.bg,
-            "background" => ast.ui.bg,
-            "element.background" => ast.ui.element.color,
-            "element.hover" => ast.ui.element.hover,
-            "element.active" => ast.ui.element.active,
-            "element.selected" => ast.ui.element.selected,
-            "element.disabled" => ast.ui.element.disabled,
+            "border" => ir.ui.border.color,
+            "border.variant" => ir.ui.border.variant,
+            "border.focused" => ir.ui.border.focused,
+            "border.selected" => ir.ui.border.selected,
+            "border.transparent" => ir.ui.border.transparent,
+            "border.disabled" => ir.ui.border.disabled,
+            "elevated_surface.background" => ir.ui.bg,
+            "surface.background" => ir.ui.bg,
+            "background" => ir.ui.bg,
+            "element.background" => ir.ui.element.color,
+            "element.hover" => ir.ui.element.hover,
+            "element.active" => ir.ui.element.active,
+            "element.selected" => ir.ui.element.selected,
+            "element.disabled" => ir.ui.element.disabled,
             "drop_target.background" => "#89859180",
-            "ghost_element.background" => ast.ui.ghost_element.color,
-            "ghost_element.hover" => ast.ui.ghost_element.hover,
-            "ghost_element.active" => ast.ui.ghost_element.active,
-            "ghost_element.selected" => ast.ui.ghost_element.selected,
-            "ghost_element.disabled" => ast.ui.ghost_element.disabled,
-            "text" => ast.ui.text.fg,
-            "text.accent" => ast.ui.text.fg_accent,
-            "text.disabled" => ast.ui.text.fg_disabled,
-            "text.muted" => ast.ui.text.fg_muted,
-            "text.placeholder" => ast.ui.text.fg_placeholder,
-            "icon" => ast.ui.icon.fg,
-            "icon.accent" => ast.ui.icon.fg_accent,
-            "icon.disabled" => ast.ui.icon.fg_disabled,
-            "icon.muted" => ast.ui.icon.fg_muted,
-            "icon.placeholder" => ast.ui.icon.fg_placeholder,
-            "status_bar.background" => ast.ui.status_bar_bg,
-            "title_bar.background" => ast.ui.title_bar_bg,
-            "title_bar.inactive_background" => ast.ui.title_bar_inactive_bg,
-            "toolbar.background" => ast.ui.toolbar_bg,
-            "tab_bar.background" => ast.ui.tab_bar_bg,
-            "tab.inactive_background" => ast.ui.tab_inactive_bg,
-            "tab.active_background" => ast.ui.tab_active_bg,
-            "search.match_background" => ast.ui.search_match_bg,
-            "panel.background" => ast.ui.panel_bg,
-            "panel.focused_border" => ast.ui.panel_focused_bg,
-            "pane.focused_border" => ast.ui.border.focused,
-            "scrollbar.thumb.background" => ast.ui.scrollbar_thumb_bg,
-            "scrollbar.thumb.hover_background" => ast.ui.scrollbar_thumb_hover_bg,
-            "scrollbar.thumb.border" => ast.ui.scrollbar_thumb_border,
-            "scrollbar.track.background" => ast.ui.scrollbar_track_bg,
-            "scrollbar.track.border" => ast.ui.scrollbar_track_border,
-            "editor.foreground" => ast.editor.fg,
-            "editor.background" => ast.editor.bg,
-            "editor.gutter.background" => ast.editor.bg,
-            "editor.subheader.background" => ast.editor.subheader_bg,
-            "editor.active_line.background" => ast.editor.active_line_bg,
-            "editor.highlighted_line.background" => ast.editor.highlighted_line_bg,
-            "editor.line_number" => ast.editor.line_number,
-            "editor.active_line_number" => ast.editor.line_number_active,
+            "ghost_element.background" => ir.ui.ghost_element.color,
+            "ghost_element.hover" => ir.ui.ghost_element.hover,
+            "ghost_element.active" => ir.ui.ghost_element.active,
+            "ghost_element.selected" => ir.ui.ghost_element.selected,
+            "ghost_element.disabled" => ir.ui.ghost_element.disabled,
+            "text" => ir.ui.text.fg,
+            "text.accent" => ir.ui.text.fg_accent,
+            "text.disabled" => ir.ui.text.fg_disabled,
+            "text.muted" => ir.ui.text.fg_muted,
+            "text.placeholder" => ir.ui.text.fg_placeholder,
+            "icon" => ir.ui.icon.fg,
+            "icon.accent" => ir.ui.icon.fg_accent,
+            "icon.disabled" => ir.ui.icon.fg_disabled,
+            "icon.muted" => ir.ui.icon.fg_muted,
+            "icon.placeholder" => ir.ui.icon.fg_placeholder,
+            "status_bar.background" => ir.ui.status_bar_bg,
+            "title_bar.background" => ir.ui.title_bar_bg,
+            "title_bar.inactive_background" => ir.ui.title_bar_inactive_bg,
+            "toolbar.background" => ir.ui.toolbar_bg,
+            "tab_bar.background" => ir.ui.tab_bar_bg,
+            "tab.inactive_background" => ir.ui.tab_inactive_bg,
+            "tab.active_background" => ir.ui.tab_active_bg,
+            "search.match_background" => ir.ui.search_match_bg,
+            "panel.background" => ir.ui.panel_bg,
+            "panel.focused_border" => ir.ui.panel_focused_bg,
+            "pane.focused_border" => ir.ui.border.focused,
+            "scrollbar.thumb.background" => ir.ui.scrollbar_thumb_bg,
+            "scrollbar.thumb.hover_background" => ir.ui.scrollbar_thumb_hover_bg,
+            "scrollbar.thumb.border" => ir.ui.scrollbar_thumb_border,
+            "scrollbar.track.background" => ir.ui.scrollbar_track_bg,
+            "scrollbar.track.border" => ir.ui.scrollbar_track_border,
+            "editor.foreground" => ir.editor.fg,
+            "editor.background" => ir.editor.bg,
+            "editor.gutter.background" => ir.editor.bg,
+            "editor.subheader.background" => ir.editor.subheader_bg,
+            "editor.active_line.background" => ir.editor.active_line_bg,
+            "editor.highlighted_line.background" => ir.editor.highlighted_line_bg,
+            "editor.line_number" => ir.editor.line_number,
+            "editor.active_line_number" => ir.editor.line_number_active,
             "editor.invisible" => "#726c7aff",
             "editor.wrap_guide" => "#efecf40d",
             "editor.active_wrap_guide" => "#efecf41a",
@@ -73,319 +73,319 @@ defmodule Pantheme.Emitter.Zed do
             "editor.document_highlight.write_background" => "#726c7a66",
 
             # Terminal colors
-            "terminal.background" => ast.term.bg,
-            "terminal.foreground" => ast.term.fg.normal,
-            "terminal.bright_foreground" => ast.term.fg.bright,
-            "terminal.dim_foreground" => ast.term.fg.dim,
-            "terminal.ansi.black" => ast.term.black.normal,
-            "terminal.ansi.bright_black" => ast.term.black.bright,
-            "terminal.ansi.dim_black" => ast.term.black.dim,
-            "terminal.ansi.red" => ast.term.red.normal,
-            "terminal.ansi.bright_red" => ast.term.red.bright,
-            "terminal.ansi.dim_red" => ast.term.red.dim,
-            "terminal.ansi.green" => ast.term.green.normal,
-            "terminal.ansi.bright_green" => ast.term.green.bright,
-            "terminal.ansi.dim_green" => ast.term.green.dim,
-            "terminal.ansi.yellow" => ast.term.yellow.normal,
-            "terminal.ansi.bright_yellow" => ast.term.yellow.bright,
-            "terminal.ansi.dim_yellow" => ast.term.yellow.dim,
-            "terminal.ansi.blue" => ast.term.blue.normal,
-            "terminal.ansi.bright_blue" => ast.term.blue.bright,
-            "terminal.ansi.dim_blue" => ast.term.blue.dim,
-            "terminal.ansi.magenta" => ast.term.magenta.normal,
-            "terminal.ansi.bright_magenta" => ast.term.magenta.bright,
-            "terminal.ansi.dim_magenta" => ast.term.magenta.dim,
-            "terminal.ansi.cyan" => ast.term.cyan.normal,
-            "terminal.ansi.bright_cyan" => ast.term.cyan.bright,
-            "terminal.ansi.dim_cyan" => ast.term.cyan.dim,
-            "terminal.ansi.white" => ast.term.white.normal,
-            "terminal.ansi.bright_white" => ast.term.white.bright,
-            "terminal.ansi.dim_white" => ast.term.white.dim,
+            "terminal.background" => ir.term.bg,
+            "terminal.foreground" => ir.term.fg.normal,
+            "terminal.bright_foreground" => ir.term.fg.bright,
+            "terminal.dim_foreground" => ir.term.fg.dim,
+            "terminal.ansi.black" => ir.term.black.normal,
+            "terminal.ansi.bright_black" => ir.term.black.bright,
+            "terminal.ansi.dim_black" => ir.term.black.dim,
+            "terminal.ansi.red" => ir.term.red.normal,
+            "terminal.ansi.bright_red" => ir.term.red.bright,
+            "terminal.ansi.dim_red" => ir.term.red.dim,
+            "terminal.ansi.green" => ir.term.green.normal,
+            "terminal.ansi.bright_green" => ir.term.green.bright,
+            "terminal.ansi.dim_green" => ir.term.green.dim,
+            "terminal.ansi.yellow" => ir.term.yellow.normal,
+            "terminal.ansi.bright_yellow" => ir.term.yellow.bright,
+            "terminal.ansi.dim_yellow" => ir.term.yellow.dim,
+            "terminal.ansi.blue" => ir.term.blue.normal,
+            "terminal.ansi.bright_blue" => ir.term.blue.bright,
+            "terminal.ansi.dim_blue" => ir.term.blue.dim,
+            "terminal.ansi.magenta" => ir.term.magenta.normal,
+            "terminal.ansi.bright_magenta" => ir.term.magenta.bright,
+            "terminal.ansi.dim_magenta" => ir.term.magenta.dim,
+            "terminal.ansi.cyan" => ir.term.cyan.normal,
+            "terminal.ansi.bright_cyan" => ir.term.cyan.bright,
+            "terminal.ansi.dim_cyan" => ir.term.cyan.dim,
+            "terminal.ansi.white" => ir.term.white.normal,
+            "terminal.ansi.bright_white" => ir.term.white.bright,
+            "terminal.ansi.dim_white" => ir.term.white.dim,
             "link_text.hover" => "#566ddaff",
 
             # Containers
-            "conflict" => ast.ui.conflict.fg,
-            "conflict.background" => ast.ui.conflict.bg,
-            "conflict.border" => ast.ui.conflict.border,
-            "created" => ast.ui.created.fg,
-            "created.background" => ast.ui.created.bg,
-            "created.border" => ast.ui.created.border,
-            "deleted" => ast.ui.deleted.fg,
-            "deleted.background" => ast.ui.deleted.bg,
-            "deleted.border" => ast.ui.deleted.border,
-            "error" => ast.ui.error.fg,
-            "error.background" => ast.ui.error.bg,
-            "error.border" => ast.ui.error.border,
-            "hidden" => ast.ui.hidden.fg,
-            "hidden.background" => ast.ui.hidden.bg,
-            "hidden.border" => ast.ui.hidden.border,
-            "hint" => ast.ui.hint.fg,
-            "hint.background" => ast.ui.hint.bg,
-            "hint.border" => ast.ui.hint.border,
-            "ignored" => ast.ui.ignored.fg,
-            "ignored.background" => ast.ui.ignored.bg,
-            "ignored.border" => ast.ui.ignored.border,
-            "info" => ast.ui.info.fg,
-            "info.background" => ast.ui.info.bg,
-            "info.border" => ast.ui.info.border,
-            "modified" => ast.ui.modified.fg,
-            "modified.background" => ast.ui.modified.bg,
-            "modified.border" => ast.ui.modified.border,
-            "predictive" => ast.ui.predictive.fg,
-            "predictive.background" => ast.ui.predictive.bg,
-            "predictive.border" => ast.ui.predictive.border,
-            "renamed" => ast.ui.renamed.fg,
-            "renamed.background" => ast.ui.renamed.bg,
-            "renamed.border" => ast.ui.renamed.border,
-            "success" => ast.ui.success.fg,
-            "success.background" => ast.ui.success.bg,
-            "success.border" => ast.ui.success.border,
-            "unreachable" => ast.ui.unreachable.fg,
-            "unreachable.background" => ast.ui.unreachable.bg,
-            "unreachable.border" => ast.ui.unreachable.border,
-            "warning" => ast.ui.warning.fg,
-            "warning.background" => ast.ui.warning.bg,
-            "warning.border" => ast.ui.warning.border,
+            "conflict" => ir.ui.conflict.fg,
+            "conflict.background" => ir.ui.conflict.bg,
+            "conflict.border" => ir.ui.conflict.border,
+            "created" => ir.ui.created.fg,
+            "created.background" => ir.ui.created.bg,
+            "created.border" => ir.ui.created.border,
+            "deleted" => ir.ui.deleted.fg,
+            "deleted.background" => ir.ui.deleted.bg,
+            "deleted.border" => ir.ui.deleted.border,
+            "error" => ir.ui.error.fg,
+            "error.background" => ir.ui.error.bg,
+            "error.border" => ir.ui.error.border,
+            "hidden" => ir.ui.hidden.fg,
+            "hidden.background" => ir.ui.hidden.bg,
+            "hidden.border" => ir.ui.hidden.border,
+            "hint" => ir.ui.hint.fg,
+            "hint.background" => ir.ui.hint.bg,
+            "hint.border" => ir.ui.hint.border,
+            "ignored" => ir.ui.ignored.fg,
+            "ignored.background" => ir.ui.ignored.bg,
+            "ignored.border" => ir.ui.ignored.border,
+            "info" => ir.ui.info.fg,
+            "info.background" => ir.ui.info.bg,
+            "info.border" => ir.ui.info.border,
+            "modified" => ir.ui.modified.fg,
+            "modified.background" => ir.ui.modified.bg,
+            "modified.border" => ir.ui.modified.border,
+            "predictive" => ir.ui.predictive.fg,
+            "predictive.background" => ir.ui.predictive.bg,
+            "predictive.border" => ir.ui.predictive.border,
+            "renamed" => ir.ui.renamed.fg,
+            "renamed.background" => ir.ui.renamed.bg,
+            "renamed.border" => ir.ui.renamed.border,
+            "success" => ir.ui.success.fg,
+            "success.background" => ir.ui.success.bg,
+            "success.border" => ir.ui.success.border,
+            "unreachable" => ir.ui.unreachable.fg,
+            "unreachable.background" => ir.ui.unreachable.bg,
+            "unreachable.border" => ir.ui.unreachable.border,
+            "warning" => ir.ui.warning.fg,
+            "warning.background" => ir.ui.warning.bg,
+            "warning.border" => ir.ui.warning.border,
 
             # Players
             "players" => [
               %{
                 # TODO
-                "cursor" => ast.term.blue.normal,
-                "background" => ast.editor.bg,
-                "selection" => ast.editor.selection_bg
+                "cursor" => ir.term.blue.normal,
+                "background" => ir.editor.bg,
+                "selection" => ir.editor.selection_bg
               },
               %{
-                "cursor" => ast.term.green.normal,
-                "background" => ast.term.green.normal,
-                "selection" => ast.term.green.bright
+                "cursor" => ir.term.green.normal,
+                "background" => ir.term.green.normal,
+                "selection" => ir.term.green.bright
               },
               %{
-                "cursor" => ast.term.yellow.normal,
-                "background" => ast.term.yellow.normal,
-                "selection" => ast.term.yellow.bright
+                "cursor" => ir.term.yellow.normal,
+                "background" => ir.term.yellow.normal,
+                "selection" => ir.term.yellow.bright
               },
               %{
-                "cursor" => ast.term.red.normal,
-                "background" => ast.term.red.normal,
-                "selection" => ast.term.red.bright
+                "cursor" => ir.term.red.normal,
+                "background" => ir.term.red.normal,
+                "selection" => ir.term.red.bright
               },
               %{
-                "cursor" => ast.term.magenta.normal,
-                "background" => ast.term.magenta.normal,
-                "selection" => ast.term.magenta.bright
+                "cursor" => ir.term.magenta.normal,
+                "background" => ir.term.magenta.normal,
+                "selection" => ir.term.magenta.bright
               },
               %{
-                "cursor" => ast.term.cyan.normal,
-                "background" => ast.term.cyan.normal,
-                "selection" => ast.term.cyan.bright
+                "cursor" => ir.term.cyan.normal,
+                "background" => ir.term.cyan.normal,
+                "selection" => ir.term.cyan.bright
               }
             ],
             "syntax" => %{
               "attribute" => %{
-                "color" => ast.syntax.attribute.fg,
-                "font_style" => ast.syntax.attribute.style,
-                "font_weight" => ast.syntax.attribute.weight
+                "color" => ir.syntax.attribute.fg,
+                "font_style" => ir.syntax.attribute.style,
+                "font_weight" => ir.syntax.attribute.weight
               },
               "boolean" => %{
-                "color" => ast.syntax.boolean.fg,
-                "font_style" => ast.syntax.boolean.style,
-                "font_weight" => ast.syntax.boolean.weight
+                "color" => ir.syntax.boolean.fg,
+                "font_style" => ir.syntax.boolean.style,
+                "font_weight" => ir.syntax.boolean.weight
               },
               "comment" => %{
-                "color" => ast.syntax.comment.fg,
-                "font_style" => ast.syntax.comment.style,
-                "font_weight" => ast.syntax.comment.weight
+                "color" => ir.syntax.comment.fg,
+                "font_style" => ir.syntax.comment.style,
+                "font_weight" => ir.syntax.comment.weight
               },
               "comment.doc" => %{
-                "color" => ast.syntax.docstring.fg,
-                "font_style" => ast.syntax.docstring.style,
-                "font_weight" => ast.syntax.docstring.weight
+                "color" => ir.syntax.docstring.fg,
+                "font_style" => ir.syntax.docstring.style,
+                "font_weight" => ir.syntax.docstring.weight
               },
               "constant" => %{
-                "color" => ast.syntax.constant.fg,
-                "font_style" => ast.syntax.constant.style,
-                "font_weight" => ast.syntax.constant.weight
+                "color" => ir.syntax.constant.fg,
+                "font_style" => ir.syntax.constant.style,
+                "font_weight" => ir.syntax.constant.weight
               },
               "constructor" => %{
-                "color" => ast.syntax.constructor.fg,
-                "font_style" => ast.syntax.constructor.style,
-                "font_weight" => ast.syntax.constructor.weight
+                "color" => ir.syntax.constructor.fg,
+                "font_style" => ir.syntax.constructor.style,
+                "font_weight" => ir.syntax.constructor.weight
               },
               "embedded" => %{
-                "color" => ast.syntax.embedded.fg,
-                "font_style" => ast.syntax.embedded.style,
-                "font_weight" => ast.syntax.embedded.weight
+                "color" => ir.syntax.embedded.fg,
+                "font_style" => ir.syntax.embedded.style,
+                "font_weight" => ir.syntax.embedded.weight
               },
               "emphasis" => %{
-                "color" => ast.syntax.emphasis.fg,
-                "font_style" => ast.syntax.emphasis.style,
-                "font_weight" => ast.syntax.emphasis.weight
+                "color" => ir.syntax.emphasis.fg,
+                "font_style" => ir.syntax.emphasis.style,
+                "font_weight" => ir.syntax.emphasis.weight
               },
               "emphasis.strong" => %{
-                "color" => ast.syntax.emphasis_strong.fg,
-                "font_style" => ast.syntax.emphasis_strong.style,
-                "font_weight" => ast.syntax.emphasis_strong.weight
+                "color" => ir.syntax.emphasis_strong.fg,
+                "font_style" => ir.syntax.emphasis_strong.style,
+                "font_weight" => ir.syntax.emphasis_strong.weight
               },
               "enum" => %{
-                "color" => ast.syntax.enum.fg,
-                "font_style" => ast.syntax.enum.style,
-                "font_weight" => ast.syntax.enum.weight
+                "color" => ir.syntax.enum.fg,
+                "font_style" => ir.syntax.enum.style,
+                "font_weight" => ir.syntax.enum.weight
               },
               "function" => %{
-                "color" => ast.syntax.function.fg,
-                "font_style" => ast.syntax.function.style,
-                "font_weight" => ast.syntax.function.weight
+                "color" => ir.syntax.function.fg,
+                "font_style" => ir.syntax.function.style,
+                "font_weight" => ir.syntax.function.weight
               },
               "function.method" => %{
-                "color" => ast.syntax.method.fg,
-                "font_style" => ast.syntax.method.style,
-                "font_weight" => ast.syntax.method.weight
+                "color" => ir.syntax.method.fg,
+                "font_style" => ir.syntax.method.style,
+                "font_weight" => ir.syntax.method.weight
               },
               "function.special.definition" => %{
-                "color" => ast.syntax.function_def.fg,
-                "font_style" => ast.syntax.function_def.style,
-                "font_weight" => ast.syntax.function_def.weight
+                "color" => ir.syntax.function_def.fg,
+                "font_style" => ir.syntax.function_def.style,
+                "font_weight" => ir.syntax.function_def.weight
               },
               "hint" => %{
-                "color" => ast.syntax.hint.fg,
-                "font_style" => ast.syntax.hint.style,
-                "font_weight" => ast.syntax.hint.weight
+                "color" => ir.syntax.hint.fg,
+                "font_style" => ir.syntax.hint.style,
+                "font_weight" => ir.syntax.hint.weight
               },
               "keyword" => %{
-                "color" => ast.syntax.keyword.fg,
-                "font_style" => ast.syntax.keyword.style,
-                "font_weight" => ast.syntax.keyword.weight
+                "color" => ir.syntax.keyword.fg,
+                "font_style" => ir.syntax.keyword.style,
+                "font_weight" => ir.syntax.keyword.weight
               },
               "label" => %{
-                "color" => ast.syntax.label.fg,
-                "font_style" => ast.syntax.label.style,
-                "font_weight" => ast.syntax.label.weight
+                "color" => ir.syntax.label.fg,
+                "font_style" => ir.syntax.label.style,
+                "font_weight" => ir.syntax.label.weight
               },
               "link_text" => %{
-                "color" => ast.syntax.link_text.fg,
-                "font_style" => ast.syntax.link_text.style,
-                "font_weight" => ast.syntax.link_text.weight
+                "color" => ir.syntax.link_text.fg,
+                "font_style" => ir.syntax.link_text.style,
+                "font_weight" => ir.syntax.link_text.weight
               },
               "link_uri" => %{
-                "color" => ast.syntax.link_uri.fg,
-                "font_style" => ast.syntax.link_uri.style,
-                "font_weight" => ast.syntax.link_uri.weight
+                "color" => ir.syntax.link_uri.fg,
+                "font_style" => ir.syntax.link_uri.style,
+                "font_weight" => ir.syntax.link_uri.weight
               },
               "number" => %{
-                "color" => ast.syntax.number.fg,
-                "font_style" => ast.syntax.number.style,
-                "font_weight" => ast.syntax.number.weight
+                "color" => ir.syntax.number.fg,
+                "font_style" => ir.syntax.number.style,
+                "font_weight" => ir.syntax.number.weight
               },
               "operator" => %{
-                "color" => ast.syntax.operator.fg,
-                "font_style" => ast.syntax.operator.style,
-                "font_weight" => ast.syntax.operator.weight
+                "color" => ir.syntax.operator.fg,
+                "font_style" => ir.syntax.operator.style,
+                "font_weight" => ir.syntax.operator.weight
               },
               "predictive" => %{
-                "color" => ast.syntax.predictive.fg,
-                "font_style" => ast.syntax.predictive.style,
-                "font_weight" => ast.syntax.predictive.weight
+                "color" => ir.syntax.predictive.fg,
+                "font_style" => ir.syntax.predictive.style,
+                "font_weight" => ir.syntax.predictive.weight
               },
               "preproc" => %{
-                "color" => ast.syntax.preproc.fg,
-                "font_style" => ast.syntax.preproc.style,
-                "font_weight" => ast.syntax.preproc.weight
+                "color" => ir.syntax.preproc.fg,
+                "font_style" => ir.syntax.preproc.style,
+                "font_weight" => ir.syntax.preproc.weight
               },
               "primary" => %{
-                "color" => ast.syntax.primary.fg,
-                "font_style" => ast.syntax.primary.style,
-                "font_weight" => ast.syntax.primary.weight
+                "color" => ir.syntax.primary.fg,
+                "font_style" => ir.syntax.primary.style,
+                "font_weight" => ir.syntax.primary.weight
               },
               "property" => %{
-                "color" => ast.syntax.property.fg,
-                "font_style" => ast.syntax.property.style,
-                "font_weight" => ast.syntax.property.weight
+                "color" => ir.syntax.property.fg,
+                "font_style" => ir.syntax.property.style,
+                "font_weight" => ir.syntax.property.weight
               },
               "punctuation" => %{
-                "color" => ast.syntax.punct.fg,
-                "font_style" => ast.syntax.punct.style,
-                "font_weight" => ast.syntax.punct.weight
+                "color" => ir.syntax.punct.fg,
+                "font_style" => ir.syntax.punct.style,
+                "font_weight" => ir.syntax.punct.weight
               },
               "punctuation.bracket" => %{
-                "color" => ast.syntax.punct_bracket.fg,
-                "font_style" => ast.syntax.punct_bracket.style,
-                "font_weight" => ast.syntax.punct_bracket.weight
+                "color" => ir.syntax.punct_bracket.fg,
+                "font_style" => ir.syntax.punct_bracket.style,
+                "font_weight" => ir.syntax.punct_bracket.weight
               },
               "punctuation.delimiter" => %{
-                "color" => ast.syntax.punct_delimiter.fg,
-                "font_style" => ast.syntax.punct_delimiter.style,
-                "font_weight" => ast.syntax.punct_delimiter.weight
+                "color" => ir.syntax.punct_delimiter.fg,
+                "font_style" => ir.syntax.punct_delimiter.style,
+                "font_weight" => ir.syntax.punct_delimiter.weight
               },
               "punctuation.list_marker" => %{
-                "color" => ast.syntax.punct_list_marker.fg,
-                "font_style" => ast.syntax.punct_list_marker.style,
-                "font_weight" => ast.syntax.punct_list_marker.weight
+                "color" => ir.syntax.punct_list_marker.fg,
+                "font_style" => ir.syntax.punct_list_marker.style,
+                "font_weight" => ir.syntax.punct_list_marker.weight
               },
               "punctuation.special" => %{
-                "color" => ast.syntax.punct_special.fg,
-                "font_style" => ast.syntax.punct_special.style,
-                "font_weight" => ast.syntax.punct_special.weight
+                "color" => ir.syntax.punct_special.fg,
+                "font_style" => ir.syntax.punct_special.style,
+                "font_weight" => ir.syntax.punct_special.weight
               },
               "string" => %{
-                "color" => ast.syntax.string.fg,
-                "font_style" => ast.syntax.string.style,
-                "font_weight" => ast.syntax.string.weight
+                "color" => ir.syntax.string.fg,
+                "font_style" => ir.syntax.string.style,
+                "font_weight" => ir.syntax.string.weight
               },
               "string.escape" => %{
-                "color" => ast.syntax.string_escape.fg,
-                "font_style" => ast.syntax.string_escape.style,
-                "font_weight" => ast.syntax.string_escape.weight
+                "color" => ir.syntax.string_escape.fg,
+                "font_style" => ir.syntax.string_escape.style,
+                "font_weight" => ir.syntax.string_escape.weight
               },
               "string.regex" => %{
-                "color" => ast.syntax.string_regex.fg,
-                "font_style" => ast.syntax.string_regex.style,
-                "font_weight" => ast.syntax.string_regex.weight
+                "color" => ir.syntax.string_regex.fg,
+                "font_style" => ir.syntax.string_regex.style,
+                "font_weight" => ir.syntax.string_regex.weight
               },
               "string.special" => %{
-                "color" => ast.syntax.string_special.fg,
-                "font_style" => ast.syntax.string_special.style,
-                "font_weight" => ast.syntax.string_special.weight
+                "color" => ir.syntax.string_special.fg,
+                "font_style" => ir.syntax.string_special.style,
+                "font_weight" => ir.syntax.string_special.weight
               },
               "string.special.symbol" => %{
-                "color" => ast.syntax.string_symbol.fg,
-                "font_style" => ast.syntax.string_symbol.style,
-                "font_weight" => ast.syntax.string_symbol.weight
+                "color" => ir.syntax.string_symbol.fg,
+                "font_style" => ir.syntax.string_symbol.style,
+                "font_weight" => ir.syntax.string_symbol.weight
               },
               "tag" => %{
-                "color" => ast.syntax.tag.fg,
-                "font_style" => ast.syntax.tag.style,
-                "font_weight" => ast.syntax.tag.weight
+                "color" => ir.syntax.tag.fg,
+                "font_style" => ir.syntax.tag.style,
+                "font_weight" => ir.syntax.tag.weight
               },
               "text.literal" => %{
-                "color" => ast.syntax.text_literal.fg,
-                "font_style" => ast.syntax.text_literal.style,
-                "font_weight" => ast.syntax.text_literal.weight
+                "color" => ir.syntax.text_literal.fg,
+                "font_style" => ir.syntax.text_literal.style,
+                "font_weight" => ir.syntax.text_literal.weight
               },
               "title" => %{
-                "color" => ast.syntax.title.fg,
-                "font_style" => ast.syntax.title.style,
-                "font_weight" => ast.syntax.title.weight
+                "color" => ir.syntax.title.fg,
+                "font_style" => ir.syntax.title.style,
+                "font_weight" => ir.syntax.title.weight
               },
               "type" => %{
-                "color" => ast.syntax.title.fg,
-                "font_style" => ast.syntax.title.style,
-                "font_weight" => ast.syntax.title.weight
+                "color" => ir.syntax.title.fg,
+                "font_style" => ir.syntax.title.style,
+                "font_weight" => ir.syntax.title.weight
               },
               "variable" => %{
-                "color" => ast.syntax.variable.fg,
-                "font_style" => ast.syntax.variable.style,
-                "font_weight" => ast.syntax.variable.weight
+                "color" => ir.syntax.variable.fg,
+                "font_style" => ir.syntax.variable.style,
+                "font_weight" => ir.syntax.variable.weight
               },
               "variable.special" => %{
-                "color" => ast.syntax.variable_special.fg,
-                "font_style" => ast.syntax.variable_special.style,
-                "font_weight" => ast.syntax.variable_special.weight
+                "color" => ir.syntax.variable_special.fg,
+                "font_style" => ir.syntax.variable_special.style,
+                "font_weight" => ir.syntax.variable_special.weight
               },
               "variant" => %{
-                "color" => ast.syntax.variant.fg,
-                "font_style" => ast.syntax.variant.style,
-                "font_weight" => ast.syntax.variant.weight
+                "color" => ir.syntax.variant.fg,
+                "font_style" => ir.syntax.variant.style,
+                "font_weight" => ir.syntax.variant.weight
               }
             }
           }

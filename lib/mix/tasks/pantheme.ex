@@ -52,8 +52,8 @@ defmodule Mix.Tasks.Pantheme do
     with {:ok, loaded} <- parser.load(opts),
          {:ok, parsed} <- parser.parse(loaded),
          {:ok, normalized} <- parser.normalize(parsed),
-         ast <- parser.to_ast(normalized),
-         emitted <- emitter.emit(ast, opts),
+         ir <- parser.to_ir(normalized),
+         emitted <- emitter.emit(ir, opts),
          {:ok, dumped} <- emitter.dump(emitted) do
       output(opts, dumped)
     end

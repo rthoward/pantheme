@@ -1,4 +1,4 @@
-defmodule Pantheme.AST do
+defmodule Pantheme.IR do
   defmodule Container do
     @type t :: %__MODULE__{
             fg: String.t(),
