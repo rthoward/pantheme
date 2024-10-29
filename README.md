@@ -2,6 +2,14 @@
 
 A tool for converting colorschemes between application formats.
 
+## Demo
+
+Converting the wonderful [neovim catppuccin theme](https://github.com/catppuccin/nvim) to zed and showing it off.
+
+_(Note that there's already a catppuccin theme for zed. It's just complex and popular enough to be a good demo.)_
+
+https://github.com/user-attachments/assets/9e89efae-f5df-4b31-b7b9-1df16bf46a88
+
 ## Getting started
 
 ```
