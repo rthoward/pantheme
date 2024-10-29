@@ -1,20 +1,36 @@
 # Pantheme
 
-**TODO: Add description**
+A tool for converting colorschemes between application formats.
 
-## Installation
+## Getting started
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `pantheme` to your list of dependencies in `mix.exs`:
+```
+Usage:
+     pantheme [options]
 
-```elixir
-def deps do
-  [
-    {:pantheme, "~> 0.1.0"}
-  ]
-end
+   GENERAL OPTIONS
+     --help                     shows this guide
+     --from                     theme format to convert from (parse)
+     --to                       theme format to convert to (emit)
+     --author                   author name for emitted themes
+     --name                     name of the theme to be emitted
+     --output_file              path where emitted theme will be written. stdout if omitted
+     --appearance               dark | light
+
+   PARSER-SPECIFIC OPTIONS
+     --neovim_plugin            neovim plugin containing the theme to be parsed (usually a git repo)
+     --neovim_colorscheme       name of the vim colorscheme to be loaded (via :colorscheme)
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/pantheme>.
+## Supported applications
+
+#### Parsers
+- Neovim
+
+#### Emitters
+- Zed
+
+## Roadmap
+
+- [ ] figure out distribution
+- [ ] vscode emitter
