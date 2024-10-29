@@ -1,4 +1,6 @@
 defmodule Pantheme.Emitter.Zed do
+  @behaviour Pantheme.Emitter
+
   alias Pantheme.IR
 
   @spec emit(IR.t(), keyword()) :: map()
