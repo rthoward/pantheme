@@ -11,6 +11,7 @@ defmodule Mix.Tasks.Pantheme do
     author: :string,
     name: :string,
     output_file: :string,
+    help: :boolean,
 
     # Neovim-specific
     neovim_plugin: :string,
@@ -32,6 +33,7 @@ defmodule Mix.Tasks.Pantheme do
     appearance: [type: {:in, ["dark", "light"]}, required: true],
     name: [type: :string, required: true],
     output_file: [type: :string],
+    help: [type: :boolean, default: false],
 
     # Neovim-specific
     neovim_plugin: [type: :string],
@@ -40,6 +42,9 @@ defmodule Mix.Tasks.Pantheme do
 
   def run(args \\ []) do
     {opts, _} = OptionParser.parse!(args, strict: @switches)
+
+    if opts[:help] || "help" in args,
+      do: help_and_exit!()
 
     opts =
       opts
@@ -66,5 +71,28 @@ defmodule Mix.Tasks.Pantheme do
     else
       Mix.shell().info(dumped <> "\n")
     end
+  end
+
+  defp help_and_exit!() do
+    """
+    Usage:
+      pantheme [options]
+
+    GENERAL OPTIONS
+      --help                     shows this guide
+      --from                     theme format to convert from (parse)
+      --to                       theme format to convert to (emit)
+      --author                   author name for emitted themes
+      --name                     name of the theme to be emitted
+      --output_file              path where emitted theme will be written. stdout if omitted
+      --appearance               dark | light
+
+    PARSER-SPECIFIC OPTIONS
+      --neovim_plugin            neovim plugin containing the theme to be parsed (usually a git repo)
+      --neovim_colorscheme       name of the vim colorscheme to be loaded (via :colorscheme)
+    """
+    |> Mix.shell().info()
+
+    System.halt(0)
   end
 end
