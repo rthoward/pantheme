@@ -84,12 +84,12 @@ defmodule Mix.Tasks.Pantheme do
       --to                       theme format to convert to (emit)
       --author                   author name for emitted themes
       --name                     name of the theme to be emitted
-      --output_file              path where emitted theme will be written. stdout if omitted
+      --output_file              path to write emitted theme. stdout if omitted
       --appearance               dark | light
 
     PARSER-SPECIFIC OPTIONS
-      --neovim_plugin            neovim plugin containing the theme to be parsed (usually a git repo)
-      --neovim_colorscheme       name of the vim colorscheme to be loaded (via :colorscheme)
+      --neovim_plugin            neovim plugin containing input theme (git repo)
+      --neovim_colorscheme       name of input colorscheme (via :colorscheme)
     """
     |> Mix.shell().info()
 
