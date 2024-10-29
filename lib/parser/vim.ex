@@ -1,4 +1,6 @@
 defmodule Pantheme.Parser.Vim do
+  @behaviour Pantheme.Parser
+
   import NimbleParsec
 
   alias Pantheme.IR
