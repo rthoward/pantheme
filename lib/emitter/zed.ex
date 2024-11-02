@@ -28,7 +28,7 @@ defmodule Pantheme.Emitter.Zed do
             "element.active" => ir.ui.element.active,
             "element.selected" => ir.ui.element.selected,
             "element.disabled" => ir.ui.element.disabled,
-            "drop_target.background" => "#89859180",
+            "drop_target.background" => ir.ui.drop_target_bg,
             "ghost_element.background" => ir.ui.ghost_element.color,
             "ghost_element.hover" => ir.ui.ghost_element.hover,
             "ghost_element.active" => ir.ui.ghost_element.active,
@@ -68,11 +68,13 @@ defmodule Pantheme.Emitter.Zed do
             "editor.highlighted_line.background" => ir.editor.highlighted_line_bg,
             "editor.line_number" => ir.editor.line_number,
             "editor.active_line_number" => ir.editor.line_number_active,
-            "editor.invisible" => "#726c7aff",
-            "editor.wrap_guide" => "#efecf40d",
-            "editor.active_wrap_guide" => "#efecf41a",
-            "editor.document_highlight.read_background" => "#566dda1a",
-            "editor.document_highlight.write_background" => "#726c7a66",
+            "editor.invisible" => ir.editor.invisible,
+            "editor.wrap_guide" => ir.editor.wrap_guide,
+            "editor.active_wrap_guide" => ir.editor.wrap_guide_active,
+            "editor.document_highlight.read_background" => nil,
+            "editor.document_highlight.write_background" => nil,
+
+            "link_text.hover" => ir.ui.link_text_hover,
 
             # Terminal colors
             "terminal.background" => ir.term.bg,
@@ -103,7 +105,6 @@ defmodule Pantheme.Emitter.Zed do
             "terminal.ansi.white" => ir.term.white.normal,
             "terminal.ansi.bright_white" => ir.term.white.bright,
             "terminal.ansi.dim_white" => ir.term.white.dim,
-            "link_text.hover" => "#566ddaff",
 
             # Containers
             "conflict" => ir.ui.conflict.fg,

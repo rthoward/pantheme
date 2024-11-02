@@ -271,19 +271,25 @@ defmodule Pantheme.IR do
             selection_bg: String.t(),
             selection_fg: String.t(),
             highlighted_line_bg: String.t(),
-            subheader_bg: String.t()
+            subheader_bg: String.t(),
+            invisible: String.t(),
+            wrap_guide: String.t(),
+            wrap_guide_active: String.t(),
           }
 
     defstruct [
       :fg,
       :bg,
+      :invisible,
       :line_number,
       :line_number_active,
       :active_line_bg,
       :selection_bg,
       :selection_fg,
       :highlighted_line_bg,
-      :subheader_bg
+      :subheader_bg,
+      :wrap_guide,
+      :wrap_guide_active
     ]
   end
 

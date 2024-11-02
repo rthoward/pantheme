@@ -229,7 +229,10 @@ defmodule Pantheme.Parser.Vim do
         active_line_bg: hi(hs, "CursorLine", :bg),
         selection_fg: hi(hs, "Visual", :fg),
         selection_bg: hi(hs, "Visual", :bg),
-        subheader_bg: hi(hs, ["Pmenu"], :bg)
+        subheader_bg: hi(hs, ["Pmenu"], :bg),
+        invisible: "",
+        wrap_guide: hi(hs, "ColorColumn", :bg),
+        wrap_guide_active: hi(hs, "ColorColumn", :bg)
       },
       ui: %IR.UI{
         bg: hi(hs, "Normal", :bg),
@@ -259,6 +262,7 @@ defmodule Pantheme.Parser.Vim do
         },
         panel_bg: hi(hs, ["StatusLine"], :bg),
         panel_focused_bg: hi(hs, ["Pmenu"], :bg),
+        link_text_hover: hi(hs, ["@string.special.url", "@markup.link", "Tag"], :fg),
         conflict: %IR.Container{
           fg: hi(hs, "DiffText", :fg),
           bg: hi(hs, "DiffChange", :bg),
@@ -327,7 +331,6 @@ defmodule Pantheme.Parser.Vim do
           bg: hi(hs, "Normal", :bg),
           border: hi(hs, "Normal", :bg)
         },
-        link_text_hover: hi(hs, "Normal", :fg),
         modified: %IR.Container{
           fg: hi(hs, "GitSignsChange", :fg),
           bg: hi(hs, "GitSignsChange", :fg),
@@ -443,9 +446,9 @@ defmodule Pantheme.Parser.Vim do
           weight: hi(hs, ["@label", "Label", "Identifier"], :style) |> weight()
         },
         link_text: %IR.Text{
-          fg: hi(hs, ["@markup.link", "Tag"], :fg),
-          style: hi(hs, ["@markup.link", "Tag"], :style) |> style(),
-          weight: hi(hs, ["@markup.link", "Tag"], :style) |> weight()
+          fg: hi(hs, ["@string.special.url", "@markup.link", "Tag"], :fg),
+          style: hi(hs, ["@string.special.url", "@markup.link", "Tag"], :style) |> style(),
+          weight: hi(hs, ["@string.special.url", "@markup.link", "Tag"], :style) |> weight()
         },
         link_uri: %IR.Text{
           fg: hi(hs, ["@markup.link.url", "Tag"], :fg),
